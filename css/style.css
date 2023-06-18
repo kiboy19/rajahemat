@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=Timmana&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Smooch+Sans&display=swap");
+
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar Styling */
+.navbar {
+  border-bottom: solid 3px;
+  box-shadow: black 0px 5px 15px;
+}
+.bg-red {
+  background-color: #ff4848;
+}
+
+.warnaputih {
+  color: #fff;
+  font-family: "Timmana", sans-serif;
+  transform: translateY(10px);
+}
+
+.cantik {
+  color: #fff !important;
+  font-family: "Smooch Sans", sans-serif;
+  font-size: 26px;
+}
+
+/* Jumbotron 1 */
+
+.jumbo {
+  width: 50%;
+  padding: 10px;
+}
+
+.kotak {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 10px;
+  transform: translateY(75px);
+  transition: 1s;
+}
+
+.kotak img {
+  border-radius: 10px;
+}
+
+.kotak:hover {
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+
+.box1 {
+  background-color: #fff;
+  width: 25%;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  transition: 0.5s;
+}
+
+.box1 img {
+  border-radius: 10px;
+}
+
+.box1:hover {
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+
+/* Jumbotron 2 */
+.tekspromosi1 {
+  position: relative;
+  margin: auto;
+  padding: 10px;
+  background-color: #ff4848;
+  width: 25%;
+  height: 50px;
+  border-radius: 10px;
+}
+.tekspromosi1 h3 {
+  color: #fff;
+  font-family: "Timmana", sans-serif;
+  text-align: center;
+}
+.tekspromosi2 {
+  width: 50%;
+  padding: 10px;
+}
+
+.promosi {
+  position: relative;
+  padding: 10px;
+  width: 40%;
+  height: 50px;
+  background-color: #ff4848;
+  float: right;
+  border-radius: 10px;
+}
+
+.geser {
+  margin-top: 80px;
+  transform: translateX(250px) !important;
+}
+
+.kiri {
+  float: left !important;
+  margin-top: 60px;
+}
+
+.promosi h3 {
+  color: #fff;
+  font-family: "Timmana", sans-serif;
+  text-align: center;
+}
+
+/* Produk */
+.cards {
+  position: relative;
+  width: 23%;
+  background-color: #fff;
+  margin: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  transition: 1s;
+}
+
+.cards:hover {
+  transform: translateY(-20px);
+  cursor: pointer;
+}
+
+.cards img {
+  border-radius: 10px;
+}
+
+/* footeer */
+.foot {
+  width: 25%;
+  margin: auto;
+}
+
+.foot h4 {
+  color: #fff;
+}
+
+.foot li {
+  list-style: none;
+  color: #fff;
+}
+
+.foot p {
+  color: #fff;
+}
+
+/* Login form */
+.login {
+  position: relative;
+  padding: 30px;
+  background-color: #ff4848;
+  width: 50%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.login h3 {
+  color: #fff;
+}
+
+.login label {
+  color: #fff;
+}
+
+/* RESPONSIVE MAX 991PX */
+@media only screen and (max-width: 991px) {
+  .tekspromosi1 {
+    width: 50%;
+  }
+  .promosi {
+    width: 80%;
+  }
+
+  .geser {
+    transform: translateX(-1px) !important;
+  }
+
+  .cards {
+    width: 20%;
+  }
+}
+
+/* RESPONSIVE MAX 370PX */
+@media only screen and (max-width: 428px) {
+  .jumbo {
+    width: 100%;
+  }
+  .atas {
+    transform: translateY(-10px);
+  }
+  .box1 {
+    width: 43%;
+    margin: 10px;
+    transform: translateX(10px);
+  }
+  .tekspromosi1 {
+    width: 90%;
+  }
+  .tekspromosi2 {
+    width: 80%;
+    margin: auto;
+  }
+  .promosi {
+    width: 100%;
+  }
+
+  .geser {
+    margin-top: 12px;
+  }
+  .kiri {
+    margin-top: 0px;
+  }
+
+  .cards {
+    width: 40%;
+    transform: translateX(5px);
+  }
+  .foot {
+    width: 100%;
+  }
+  .login {
+    width: 90%;
+  }
+}
