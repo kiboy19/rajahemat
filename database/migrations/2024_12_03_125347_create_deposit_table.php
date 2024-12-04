@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('log_saldos', function (Blueprint $table) {
-        $table->id('id_log');
+    Schema::create('deposit', function (Blueprint $table) {
+        $table->id('id_deposit');
+        $table->decimal('jumlah_deposit', 15, 2);
+        $table->timestamp('tanggal_deposit');
+        $table->string('waktu_deposit');
+        $table->enum('status_deposit', ['pending', 'success', 'failed']);
         $table->foreignId('id_saldo')->constrained('saldos');
-        $table->decimal('jumlah_perubahan', 15, 2);
-        $table->enum('tipe_perubahan', ['deposit', 'withdrawal', 'adjustment']);
-        $table->timestamp('tanggal_perubahan')->useCurrent(); // Menggunakan useCurrent()
-        $table->foreignId('id_admin')->constrained('admins');
         $table->timestamps();
     });
 }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('log_saldos');
+        Schema::dropIfExists('deposit');
     }
 };
