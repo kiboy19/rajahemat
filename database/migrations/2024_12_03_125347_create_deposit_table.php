@@ -17,7 +17,6 @@ return new class extends Migration
         $table->timestamp('tanggal_deposit');
         $table->string('waktu_deposit');
         $table->enum('status_deposit', ['pending', 'success', 'failed']);
-        $table->foreignId('id_saldo')->constrained('saldos');
         $table->timestamps();
     });
 }
