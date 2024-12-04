@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('riwayat_orders', function (Blueprint $table) {
+    Schema::create('riwayat_order', function (Blueprint $table) {
         $table->id('id_riwayat');
-        $table->foreignId('id_order')->constrained('orders');
-        $table->foreignId('id_status')->constrained('status_orders');
+        $table->foreignId('id_order')->constrained('order');
+        $table->foreignId('id_status')->constrained('status_order');
         $table->timestamp('timestamp')->useCurrent(); // Menggunakan useCurrent()
         $table->foreignId('changed_by')->constrained('admins');
         $table->timestamps();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('riwayat_orders');
+        Schema::dropIfExists('riwayat_order');
     }
 };

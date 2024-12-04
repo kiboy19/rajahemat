@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('log_saldos', function (Blueprint $table) {
+    Schema::create('log_layanan', function (Blueprint $table) {
         $table->id('id_log');
-        $table->foreignId('id_saldo')->constrained('saldos');
-        $table->decimal('jumlah_perubahan', 15, 2);
-        $table->enum('tipe_perubahan', ['deposit', 'withdrawal', 'adjustment']);
-        $table->timestamp('tanggal_perubahan')->useCurrent(); // Menggunakan useCurrent()
+        $table->foreignId('id_layanan')->constrained('layanan');
+        $table->boolean('status_layanan');
+        $table->timestamp('timestamp')->useCurrent(); // Menggunakan useCurrent()
         $table->foreignId('id_admin')->constrained('admins');
         $table->timestamps();
     });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('log_saldos');
+        Schema::dropIfExists('log_layanan');
     }
 };

@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('roles', function (Blueprint $table) {
-        $table->id('id_role');
-        $table->string('role', 50)->unique();
+    Schema::create('deposit', function (Blueprint $table) {
+        $table->id('id_deposit');
+        $table->decimal('jumlah_deposit', 15, 2);
+        $table->timestamp('tanggal_deposit');
+        $table->string('waktu_deposit');
+        $table->enum('status_deposit', ['pending', 'success', 'failed']);
         $table->timestamps();
     });
 }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('deposit');
     }
 };

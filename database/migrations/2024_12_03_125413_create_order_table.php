@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('saldos', function (Blueprint $table) {
-        $table->id('id_saldo');
-        $table->decimal('jumlah_saldo', 15, 2)->check('jumlah_saldo >= 0');
+    Schema::create('orders', function (Blueprint $table) {
+        $table->id('id_order');
+        $table->foreignId('id_layanan')->constrained('layanans');
+        $table->integer('jumlah_order');
+        $table->string('target');
         $table->timestamps();
     });
 }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saldos');
+        Schema::dropIfExists('orders');
     }
 };
