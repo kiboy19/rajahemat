@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,24 @@ class AuthController extends Controller
             return redirect('/dashboard');
         }
         return back()->with('failed', 'Email atau password salah');
+    }
+
+    public function register(Request $request) {
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'required|email|max:50|unique:users,email',
+            'password' => 'required|max:50|min:8',
+            'confirm_password' => 'required|max:50|min:8|same:password',
+        ]);
+    
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password), 
+        ]);
+    
+        Auth::login($user); 
+        return redirect('/login'); 
     }
 
     public function logout(){
