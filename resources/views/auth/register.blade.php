@@ -67,12 +67,19 @@
     </style>
 </head>
 <body>
+    <form action="/register" method="POST">
     <div class="login-container">
+        @error('name')
+        <small class="">{{ $message }}</small>
+        @enderror
+        <h1>Register</h1>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
         @error('email')
         <small class="">{{ $message }}</small>
         @enderror
-        <h1>Login</h1>
-        <form action="/login" method="POST">
             <div class="form-group">
                 <label for="email">email</label>
                 <input type="text" id="email" name="email" required>
@@ -85,22 +92,26 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
+            @error('confirm_password')
+            <small class="">{{ $message }}</small>
+            
+        @enderror
+            <div class="form-group">
+                <label for="confirm_password">Password</label>
+                <input type="password" id="confirm password" name="confirm password" required>
+            </div>
             @csrf
             <button type="submit" class="login-button">Masuk</button>
         </form>
-        <div class="">
-            <div class="">
-              <div class="">
-                <input type="checkbox" name="remember" id="remember">
-                <label for="remember">
-                  Remember Me
-                </label>
-              </div>
-            </div>
-          </div>
-          <p>
-            <a href="/register">Daftar</a>
-          </p>
-    </div>
+       </div>
+       <script>
+        $('.show-confirm-password').on('click', function(){
+            if($('#confirm-password').atte('type') == 'password'){
+                $('#confirm-password').atte('type', 'text');
+            }else{
+                $('#confirm-password').atte('type', 'password');
+            }
+        })
+    </script>
 </body>
 </html>
