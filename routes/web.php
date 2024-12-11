@@ -9,6 +9,10 @@ Route::get('/', function () {
     return view('landing');
 });
 
+Route::get('/daftar', function () {
+    return view('daftar');
+});
+
 Route::get('/login', fn() => view('auth.login'))->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 

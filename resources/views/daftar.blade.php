@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
+    <title>Register Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // Fungsi untuk toggle navbar
@@ -14,71 +14,47 @@
     </script>
 </head>
 <body class="bg-red-900">
-<!-- Navbar -->
-<nav class="bg-white border border-white rounded-[20px] shadow-md px-20 py-4 mx-20 mt-4 sm:px-10 md:px-14 lg:px-20 relative">
-    <div class="container mx-auto flex justify-between items-center">
-        <!-- Logo -->
-        <div>
-            <img src="/storage/img/rajahemat.png" class="w-12 h-12" alt="Logo">
+    <!-- Navbar -->
+    <nav class="bg-white border border-white rounded-[20px] shadow-md px-20 py-4 mx-20 mt-4 sm:px-10 md:px-14 lg:px-20">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div>
+                <img src="/storage/img/rajahemat.png" class="w-12 h-12" alt="">
+            </div>
+            
+            <!-- Hamburger Icon for Mobile -->
+            <button class="lg:hidden text-black" onclick="toggleNavbar()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Navbar Links for Desktop -->
+            <div class="hidden lg:flex items-center space-x-4 sm:space-x-6" id="nav-menu">
+                <a href="/" class="text-black font-semibold hover:text-red-900">Sign In</a>
+                <a href="#services" class="text-black font-semibold hover:text-red-900">How It Works</a>
+                <a href="#howitworks" class="text-black font-semibold hover:text-red-900">Services</a>
+                <a href="/daftar" class="text-black font-semibold hover:text-red-900">Sign Up</a>
+                <select class="bg-gray-700 text-white p-2 rounded">
+                    <option value="en">English</option>
+                    <option value="id">Bahasa Indonesia</option>
+                </select>
+            </div>
         </div>
 
-        <!-- Hamburger Icon for Mobile -->
-        <button class="lg:hidden text-black focus:outline-none" onclick="toggleNavbar()">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
-
-        <!-- Navbar Links for Desktop -->
-        <div id="desktop-nav" class="hidden lg:flex items-center space-x-4 sm:space-x-6">
+        <!-- Menu Toggle for Mobile -->
+        <div class="lg:hidden hidden flex-col bg-gray-800 border border-gray-800 rounded-[20px] absolute top-16 right-4 p-4 space-y-4" id="nav-menu">
             <a href="/" class="text-black font-semibold hover:text-red-900">Sign In</a>
-            <a href="howitworks.html" class="text-black font-semibold hover:text-red-900">How It Works</a>
+            <a href="#services" class="text-black font-semibold hover:text-red-900">How It Works</a>
             <a href="#howitworks" class="text-black font-semibold hover:text-red-900">Services</a>
-            <a href="/daftar" class="text-black font-semibold hover:text-red-900">Sign Up</a>
+            <a href="daftar" class="text-black font-semibold hover:text-red-900">Sign Up</a>
             <select class="bg-gray-700 text-white p-2 rounded">
                 <option value="en">English</option>
                 <option value="id">Bahasa Indonesia</option>
             </select>
         </div>
-    </div>
+    </nav>
 
-    <!-- Mobile Nav (Dropdown) -->
-    <div id="mobile-nav" 
-     class="hidden flex-col bg-white text-black rounded-b-[20px] shadow-md absolute top-16 left-0 right-0 w-full px-6 py-4 transition-all duration-500 ease-in-out opacity-0 transform scale-y-0 origin-top">
-    <ul class="space-y-4 text-center">
-        <li><a href="index.html" class="font-semibold hover:text-red-400 block">Sign In</a></li>
-        <li><a href="howitworks.html" class="font-semibold hover:text-red-400 block">How It Works</a></li>
-        <li><a href="#howitworks" class="font-semibold hover:text-red-400 block">Services</a></li>
-        <li><a href="/daftar" class="font-semibold hover:text-red-400 block">Sign Up</a></li>
-        <li>
-            <select class="bg-gray-700 text-white p-2 rounded w-full">
-                <option value="en">English</option>
-                <option value="id">Bahasa Indonesia</option>
-            </select>
-        </li>
-    </ul>
-</div>
-</nav>
-
-<script>
-    // Function to toggle the mobile navigation menu
-    function toggleNavbar() {
-        const mobileNav = document.getElementById("mobile-nav");
-        
-        // Check if mobileNav is hidden
-        if (mobileNav.classList.contains("hidden")) {
-            mobileNav.classList.remove("hidden");
-            setTimeout(() => {
-                mobileNav.classList.add("opacity-100", "scale-y-100");
-                mobileNav.classList.remove("opacity-0", "scale-y-0");
-            }, 10); // Slight delay for smooth transition
-        } else {
-            mobileNav.classList.add("opacity-0", "scale-y-0");
-            mobileNav.classList.remove("opacity-100", "scale-y-100");
-            setTimeout(() => mobileNav.classList.add("hidden"), 500); // Hide after transition
-        }
-    }
-</script>
     <!-- Hero Section -->
     <div class="min-h-screen flex items-center justify-center">
         <div class="container mx-auto px-4 sm:px-8 md:px-12 lg:px-20">
@@ -87,40 +63,38 @@
                 <div class="lg:w-1/2 p-8 text-white text-center flex flex-col justify-center">
                     <h1 class="text-4xl font-bold mb-4">Join Us Today!</h1>
                     <p class="text-lg mb-6">Unlock exclusive features and enjoy a seamless experience. Sign up now to get started!</p>
-                    <a href="/daftar" class="bg-green-600 text-white font-bold py-3 px-6 rounded-md hover:bg-gray-200 hover:text-black transition">
-                        Sign Up Now
-                    </a>
                 </div>
                 <!-- Right Column -->
                 <div class="lg:w-1/2 p-8 w-full">
                     <div class="bg-red-900 border border-red-900 rounded-[20px] shadow-[0px_4px_20px_rgba(0,0,0,0.50)] p-6">
-                        <h2 class="text-2xl font-bold mb-4 text-white">Login</h2>
+                        <h2 class="text-2xl font-bold mb-4 text-white">Register</h2>
                         <form>
-                            <!-- Email Field -->
+                            <!-- Name Field -->
                             <div class="mb-4">
+                                <label for="name" class="block text-white mb-2">Name</label>
+                                <input type="text" id="name" class="w-full p-3 border rounded-md focus:ring focus:ring-blue-300" placeholder="Enter your username" required>
+                            </div>
+                             <!-- Email Field -->
+                             <div class="mb-4">
                                 <label for="email" class="block text-white mb-2">Email</label>
-                                <input type="email" id="email" class="w-full p-3 border rounded-md focus:ring focus:ring-blue-300" placeholder="Enter your username" required>
+                                <input type="email" id="email" class="w-full p-3 border rounded-md focus:ring focus:ring-blue-300" placeholder="Username" required>
                             </div>
                             <!-- Password Field -->
                             <div class="mb-4">
                                 <label for="password" class="block text-white mb-2">Password</label>
-                                <input type="password" id="password" class="w-full p-3 border rounded-md focus:ring focus:ring-blue-300" placeholder="Enter your password" required>
-                            </div>
-                            <!-- Forgot Password -->
-                            <div class="mb-4 text-right">
-                                <a href="#forgot-password" class="text-white hover:text-blue-500">Forgot Password?</a>
+                                <input type="password" id="password" class="w-full p-3 border rounded-md focus:ring focus:ring-blue-300" placeholder="Password" required>
                             </div>
                             <!-- Submit Button -->
                             <div class="mb-4">
                                 <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-gray-200 hover:text-black transition">
-                                    Sign In
+                                    Sign Up
                                 </button>
                             </div>
-                            <!-- Sign Up Link -->
+                            <!-- Sign In Link -->
                             <div class="text-center">
                                 <p class="text-white">
-                                    Do not have an account? 
-                                    <a href="/daftar" class="text-white hover:text-blue-500">Sign Up</a>
+                                    Already have an account? 
+                                    <a href="/" class="text-white hover:text-blue-500">Sign In</a>
                                 </p>
                             </div>
                         </form>
