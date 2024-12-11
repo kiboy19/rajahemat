@@ -2,7 +2,7 @@
     <!-- Baris pertama: Judul dan Tombol Join Us -->
     <div class="text-center mb-12">
         <h2 class="text-3xl font-bold mb-4">Ready to start with us?</h2>
-        <a href="/daftar" class="bg-green-600 text-white py-3 px-6 rounded-md hover:bg-gray-200 hover:text-black transition">
+        <a href="/register" class="bg-green-600 text-white py-3 px-6 rounded-md hover:bg-gray-200 hover:text-black transition">
             Join Us
         </a>
     </div>
