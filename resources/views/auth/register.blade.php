@@ -1,72 +1,40 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register Page</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            // Fungsi untuk toggle navbar
+            function toggleNavbar() {
+                const navMenu = document.getElementById('nav-menu');
+                navMenu.classList.toggle('hidden');
+            }
+        </script>
+    </head>
+<body class="bg-red-900">
+    
+    <!-- Navbar -->
+    <x-navbar></x-navbar>
 
-        .login-container {
-            background: #ffffff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
+    <!-- Hero Section -->
+    <x-hero-daftar></x-hero-daftar>
 
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333333;
-        }
+    <!-- Social Media Section -->
+    <x-sosmed></x-sosmed>
 
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
+    <!-- Our Service -->
+    <x-our-service></x-our-service>
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #555555;
-        }
+    <!-- Payment Method -->
+    <x-payment-method></x-payment-method>
 
-        input {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-        }
+    <!-- Footer -->
+    <x-footer></x-footer>
 
-        .login-button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .login-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
+</body>
+{{-- <body>
     <form action="/register" method="POST">
     <div class="login-container">
         @error('name')
@@ -113,5 +81,5 @@
             }
         })
     </script>
-</body>
+</body> --}}
 </html>
