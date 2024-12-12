@@ -65,6 +65,7 @@ class AuthController extends Controller
             'name' => $googleUser->name,
             'email' => $googleUser->email,
             'password' => bcrypt(Str::random(16)),
+            'role' => 'user',
         ]);
     }
 
@@ -74,7 +75,7 @@ class AuthController extends Controller
 
         return redirect('/user');
     }else{
-        return redirect('/user');
+        return redirect('/dashboard');
     }
 }
 
