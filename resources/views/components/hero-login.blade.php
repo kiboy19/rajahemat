@@ -1,4 +1,3 @@
-
 <div class="min-h-screen flex items-center justify-center">
     <div class="container mx-auto px-4 sm:px-8 md:px-12 lg:px-20">
         <div class="flex flex-col lg:flex-row items-center bg-red-900 overflow-hidden space-y-6 lg:space-y-0 lg:space-x-6">
@@ -26,7 +25,6 @@
                         
                         @error('password')
                             <small class="">{{ $message }}</small>
-                            
                         @enderror
                         <!-- Password Field -->
                         <div class="mb-4">
@@ -44,6 +42,13 @@
                                 Sign In
                             </button>
                         </div>
+                        <!-- Google Login Button -->
+                        <div class="mb-4">
+                            <a href="/auth-google-redirect" class="w-full flex items-center justify-center bg-white text-black py-3 rounded-md hover:bg-gray-200 transition">
+                                <img src="/path/to/google-icon.png" alt="Google Icon" class="w-6 h-6 mr-2">
+                                Login with Google
+                            </a>
+                        </div>
                         <!-- Sign Up Link -->
                         <div class="text-center">
                             <p class="text-white">
@@ -57,5 +62,3 @@
         </div>
     </div>
 </div>
-
-

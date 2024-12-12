@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
+
 
 class AuthController extends Controller
 {
@@ -15,9 +18,11 @@ class AuthController extends Controller
 
         ]);
         if(Auth::attempt($request->only('email', 'password'), $request->remember)){
-            if(Auth::user()->role == 'user' )
-                return redirect('/user');
+            if(Auth::user()->role == 'user' ){
+            return redirect('/user');
+        }else{
             return redirect('/dashboard');
+        }
         }
         return back()->with('failed', 'Email atau password salah');
     }
@@ -39,6 +44,40 @@ class AuthController extends Controller
         Auth::login($user); 
         return redirect('/'); 
     }
+
+    public function google_redirect(){
+
+        return Socialite::driver('google')->redirect();
+
+    }
+
+    public function google_callback()
+{
+
+    $googleUser = Socialite::driver('google')->user();
+    
+
+    $user = User::where('email', $googleUser->email)->first();
+    
+
+    if (!$user) {
+        $user = User::create([
+            'name' => $googleUser->name,
+            'email' => $googleUser->email,
+            'password' => bcrypt(Str::random(16)),
+        ]);
+    }
+
+ 
+    Auth::login($user);
+    if($user->role == 'user') {
+
+        return redirect('/user');
+    }else{
+        return redirect('/user');
+    }
+}
+
 
     public function logout(){
         Auth::logout(Auth::user());
