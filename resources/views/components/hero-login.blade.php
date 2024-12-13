@@ -33,7 +33,7 @@
                         </div>
                         <!-- Forgot Password -->
                         <div class="mb-4 text-right">
-                            <a href="#forgot-password" class="text-white hover:text-blue-500">Forgot Password?</a>
+                            <a href="/reset-password" class="text-white hover:text-blue-500">Forgot Password?</a>
                         </div>
                         <!-- Submit Button -->
                         <div class="mb-4">
