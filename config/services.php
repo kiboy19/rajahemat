@@ -37,7 +37,12 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => config('app.url'). '/auth-google-callback' ,
-],
+        'redirect' => config('app.url') . '/auth-google-callback',
+    ],
+    'smmnusantara' => [
+        'url' => env('API_URL'),
+        'api_id' => env('API_ID'),
+        'api_key' => env('API_KEY'),
+    ],
 
 ];
