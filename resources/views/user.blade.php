@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-100 font-sans">
   <div class="flex min-h-screen">
-
+    <x-sidebardashboard></x-sidebardashboard>
   </div>
 
   <script>
