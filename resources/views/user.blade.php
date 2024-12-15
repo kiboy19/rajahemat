@@ -10,6 +10,7 @@
 <body class="bg-gray-100 font-sans">
   <div class="flex min-h-screen">
     <x-sidebardashboard></x-sidebardashboard>
+    <x-contentdashboard></x-contentdashboard>
   </div>
 
   <script>
