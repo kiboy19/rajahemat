@@ -39,9 +39,25 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
 
 Route::group(['middleware' => ['auth', 'check_role:admin']], function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+    
+    // Rute untuk layanan admin
+
+    // [ServiceController::class, 'index'])->name('admin.services.index')
+
+    // Route::get('/admin/services', );
+    Route::get('/admin/services', function () {
+        return view('admin.services');
+    });
+    Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
+    Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
+    Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
+    Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update');
+    Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
 });
 
 Route::get('/logout', [AuthController::class, 'logout']);
+
+
 
 // Rute untuk menampilkan daftar layanan
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');

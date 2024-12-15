@@ -20,7 +20,7 @@
           >
           <a
             class="block py-2 px-4 hover:bg-blue-700 rounded-lg transition"
-            href="#"
+            href="../admin/service"
             >Service</a
           >
           <a
