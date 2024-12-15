@@ -21,7 +21,7 @@ class AuthController extends Controller
             if(Auth::user()->role == 'user' ){
             return redirect('/user');
         }else{
-            return redirect('/dashboard');
+            return redirect('/admin/dashboard');
         }
         }
         return back()->with('failed', 'Email atau password salah');
@@ -75,7 +75,7 @@ class AuthController extends Controller
 
         return redirect('/user');
     }else{
-        return redirect('/dashboard');
+        return redirect('/admin/dashboard');
     }
 }
 

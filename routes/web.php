@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
 
 
 Route::group(['middleware' => ['auth', 'check_role:admin']], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 });
 
 Route::get('/logout', [AuthController::class, 'logout']);
