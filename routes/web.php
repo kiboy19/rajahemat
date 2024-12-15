@@ -31,8 +31,8 @@ Route::get('/auth-google-callback', [AuthController::class, 'google_callback']);
 
 
 Route::group(['middleware' => ['auth', 'check_role:user']], function () {
-    Route::get('/user', function () {
-        return view('user');
+    Route::get('/user/user', function () {
+        return view('user/user');
     })->name('user');
 });
 
