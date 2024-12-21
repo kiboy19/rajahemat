@@ -75,13 +75,16 @@
                             class="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-600"
                             placeholder="Ketik untuk mencari" value="{{ request('search') }}" />
                     </div>
-
-                    <!-- Tombol Filter -->
-                    <button type="submit"
-                        class="text-white bg-blue-800 p-2 rounded-lg text-center hover:bg-blue-700 transition-colors">
-                        Filter
-                    </button>
                 </form>
+                <!-- Tombol Filter -->
+                <form action="{{ route('admin.services.fetch') }}" method="POST" class="d-inline">
+                  @csrf
+                  
+                  <button type="submit"
+                  class="text-white bg-blue-800 p-2 rounded-lg text-center hover:bg-blue-700 transition-colors">
+                  Ambil Data API
+                </button>
+              </form>
 
                 <!-- Tombol Tambah Layanan Baru (mengarah ke route admin.services.create) -->
                 <div class="flex justify-end mb-4">
