@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\Service;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ServiceController extends Controller
 {
@@ -83,7 +84,7 @@ class ServiceController extends Controller
 
         try {
             // Log Permintaan API
-            \Log::info('API Request:', [
+            Log::info('API Request:', [
                 'url' => $this->apiUrl,
                 'method' => 'POST',
                 'params' => [
@@ -104,7 +105,7 @@ class ServiceController extends Controller
             $body = json_decode($response->getBody(), true);
 
             // Log Respon API
-            \Log::info('API Response:', [
+            Log::info('API Response:', [
                 'status_code' => $statusCode,
                 'body' => $body,
             ]);
@@ -276,5 +277,5 @@ class ServiceController extends Controller
         // Return ke view admin, misalnya 'admin.services'
         // Nanti kita sesuaikan agar file ini menampilkan tabel dgn Tailwind
         return view('admin.services', compact('services', 'categories'));
-    }
+    }
 }
