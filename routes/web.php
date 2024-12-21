@@ -12,10 +12,6 @@ Route::get('/', function () {
     return view('landing');
 });
 
-Route::get('/daftar', function () {
-    return view('daftar');
-});
-
 Route::get('/', fn() => view('landing'))->name('landing');
 Route::post('/', [AuthController::class, 'login']);
 
@@ -24,7 +20,6 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/reset-password', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
-
 
 Route::get('/auth-google-redirect', [AuthController::class, 'google_redirect']);
 Route::get('/auth-google-callback', [AuthController::class, 'google_callback']);
@@ -39,15 +34,9 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
 
 Route::group(['middleware' => ['auth', 'check_role:admin']], function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-    
-    // Rute untuk layanan admin
-
-    // [ServiceController::class, 'index'])->name('admin.services.index')
 
     // Route::get('/admin/services', );
-    Route::get('/admin/services', function () {
-        return view('admin.services');
-    });
+    // Route::get('/admin/services/', [DashboardController::class, 'servicesindex'], [ServiceController::class, 'adminIndex'])->middleware('auth');
     Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
     Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
     Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
