@@ -15,12 +15,12 @@
         <nav class="space-y-2">
           <a
             class="block py-2 px-4 bg-blue-800 hover:bg-blue-700 rounded-lg transition"
-            href="#"
+            href="../admin/dashboard"
             >Home</a
           >
           <a
             class="block py-2 px-4 hover:bg-blue-700 rounded-lg transition"
-            href="../admin/service"
+            href="../admin/services"
             >Service</a
           >
           <a
