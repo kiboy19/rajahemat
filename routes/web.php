@@ -82,3 +82,16 @@ Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->nam
 
 // Rute CRUD untuk kategori
 Route::resource('categories', CategoryController::class);
+
+
+// ADMIN
+
+// Ganti route statis dengan method adminIndex di ServiceController
+Route::get('/admin/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
+
+// Operasi CRUD di admin tetap mengacu pada ServiceController
+Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
+Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
+Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
+Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update');
+Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');

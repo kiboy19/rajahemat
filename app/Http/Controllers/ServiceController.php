@@ -233,4 +233,48 @@ class ServiceController extends Controller
 
         return redirect()->route('services.index')->with('success', 'Layanan berhasil dihapus.');
     }
+
+    public function adminIndex(Request $request)
+    {
+        $categories = Category::all();
+
+        $query = Service::with('category');
+
+        // Filter kategori jika dipilih
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Pencarian berdasarkan nama layanan
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where('name', 'like', '%' . $searchTerm . '%');
+        }
+
+        // Sortir harga
+        if ($request->filled('sort')) {
+            if ($request->sort == 'price_asc') {
+                $query->orderBy('price', 'asc');
+            } elseif ($request->sort == 'price_desc') {
+                $query->orderBy('price', 'desc');
+            }
+        } else {
+            $query->orderBy('id', 'asc'); // Default sorting
+        }
+
+        // Pagination
+        $services = $query->simplePaginate(10)->withQueryString();
+
+        // Jika request AJAX (live search), bisa kembalikan partial view
+        if ($request->ajax()) {
+            // Buat partial khusus admin, misalnya 'admin.partials.services_table'
+            return response()->json([
+                'html' => view('admin.partials.services_table', compact('services'))->render(),
+            ]);
+        }
+
+        // Return ke view admin, misalnya 'admin.services'
+        // Nanti kita sesuaikan agar file ini menampilkan tabel dgn Tailwind
+        return view('admin.services', compact('services', 'categories'));
+    }
 }
