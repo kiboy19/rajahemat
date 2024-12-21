@@ -62,8 +62,6 @@ Route::get('/logout', [AuthController::class, 'logout']);
 // Rute untuk menampilkan daftar layanan
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 
-// Rute untuk mengambil data dari API
-Route::post('/services/fetch', [ServiceController::class, 'fetchServices'])->name('services.fetch');
 
 // Rute untuk menampilkan form membuat layanan baru
 Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
@@ -89,6 +87,8 @@ Route::resource('categories', CategoryController::class);
 // Ganti route statis dengan method adminIndex di ServiceController
 Route::get('/admin/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
 
+// Rute untuk mengambil data dari API
+Route::post('admin/services/fetch', [ServiceController::class, 'fetchServices'])->name('admin.services.fetch');
 // Operasi CRUD di admin tetap mengacu pada ServiceController
 Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
 Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
