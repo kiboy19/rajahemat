@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
 use App\Models\Service;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use App\Services\SmmNusantaraFetcher;
 
 class ServiceController extends Controller
 {
@@ -75,7 +74,7 @@ class ServiceController extends Controller
         return view('services.index', compact('services', 'categories'));
     }
 
-    
+
 
     /**
      * Menampilkan form untuk membuat layanan baru.
@@ -197,87 +196,15 @@ class ServiceController extends Controller
      */
     public function fetchServices()
     {
-        $client = new Client();
+        $fetcher = new SmmNusantaraFetcher();
+        $result = $fetcher->fetchAndStoreServices();
 
-        try {
-            // Log Permintaan API
-            Log::info('API Request:', [
-                'url' => $this->apiUrl,
-                'method' => 'POST',
-                'params' => [
-                    'api_id' => $this->apiId,
-                    'api_key' => $this->apiKey,
-                ],
-            ]);
-
-            $response = $client->request('POST', $this->apiUrl, [
-                'form_params' => [
-                    'api_id' => $this->apiId,
-                    'api_key' => $this->apiKey,
-                ],
-                'timeout' => 10,
-            ]);
-
-            $statusCode = $response->getStatusCode();
-            $body = json_decode($response->getBody(), true);
-
-            // Log Respon API
-            Log::info('API Response:', [
-                'status_code' => $statusCode,
-                'body' => $body,
-            ]);
-
-            if ($statusCode == 200 && isset($body['status']) && $body['status'] === true) {
-                foreach ($body['services'] as $serviceData) {
-                    // Cek apakah kategori sudah ada, jika belum, buat kategori baru
-                    $category = Category::firstOrCreate(
-                        ['name' => $serviceData['category']],
-                        ['name' => $serviceData['category']]
-                    );
-
-                    // Simpan atau update data ke database
-                    Service::updateOrCreate(
-                        ['id' => $serviceData['id']], // Asumsi 'id' unik dari API
-                        [
-                            'name' => $serviceData['name'],
-                            'type' => $serviceData['type'],
-                            'category_id' => $category->id, // Menghubungkan ke kategori
-                            'price' => $serviceData['price'],
-                            'min' => $serviceData['min'],
-                            'max' => $serviceData['max'],
-                            'refill' => $serviceData['refill'],
-                            'description' => $serviceData['description'],
-                        ]
-                    );
-                }
-
-                return redirect()->route('admin/services')->with('success', 'Data layanan berhasil diambil dan disimpan.');
-            } else {
-                // Tangani respon gagal dari API
-                $errorMsg = isset($body['msg']) ? $body['msg'] : 'Gagal mengambil data dari API.';
-                return back()->with('error', $errorMsg);
-            }
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
-            // Tangani error client seperti 4xx
-            $response = $e->getResponse();
-            $body = json_decode($response->getBody(), true);
-            $errorMsg = isset($body['msg']) ? $body['msg'] : 'Terjadi kesalahan saat mengakses API.';
-
-            // Log Error Client
-            Log::error('Client Error:', [
-                'error_message' => $errorMsg,
-            ]);
-
-            return back()->with('error', 'Client Error: ' . $errorMsg);
-        } catch (\Exception $e) {
-            // Tangani exception lainnya seperti timeout, koneksi gagal, dll.
-
-            // Log Exception
-            Log::error('Exception:', [
-                'error_message' => $e->getMessage(),
-            ]);
-
-            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        if ($result['status']) {
+            return redirect()
+                ->route('admin.services.index')
+                ->with('success', $result['message']);
+        } else {
+            return back()->with('error', $result['message']);
         }
     }
 }
