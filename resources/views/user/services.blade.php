@@ -34,7 +34,7 @@
       <x-services-content-searchfilter></x-services-content-searchfilter>
 
       <!-- Table -->
-      
+      <x-services-content-table></x-services-content-table>
     </main>
   </div>
 
