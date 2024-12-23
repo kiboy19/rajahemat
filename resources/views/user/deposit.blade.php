@@ -30,10 +30,11 @@
         <!-- Payment Method Column -->
         <x-deposit-content-paymentcolumn></x-deposit-content-paymentcolumn>
 
+        <!-- Special Offers Column -->
+        <x-deposit-content-specialoffer></x-deposit-content-specialoffer>
       </div>
     </div>
   </div>
-
   <script>
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
