@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
-
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('landing');
@@ -29,11 +29,14 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
     Route::get('/user/user', function () {
         return view('user/user');
     })->name('user');
+
+    // tambahkan akses lain untuk user
 });
 
 
 Route::group(['middleware' => ['auth', 'check_role:admin']], function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index']);
+  
 
     // Route::get('/admin/services', );
     // Route::get('/admin/services/', [DashboardController::class, 'servicesindex'], [ServiceController::class, 'adminIndex'])->middleware('auth');
@@ -42,13 +45,7 @@ Route::group(['middleware' => ['auth', 'check_role:admin']], function () {
     Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
     Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update');
     Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
-});
-
-Route::get('/logout', [AuthController::class, 'logout']);
-
-
-
-// Rute untuk menampilkan daftar layanan
+    // Rute untuk menampilkan daftar layanan
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 
 
@@ -84,3 +81,8 @@ Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin
 Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
 Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update');
 Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
+
+// tambahkan akses lain untuk admin
+});
+
+Route::get('/logout', [AuthController::class, 'logout']);
