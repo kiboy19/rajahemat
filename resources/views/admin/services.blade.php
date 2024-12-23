@@ -1,4 +1,6 @@
 <x-admin-layout>
+    <x-adminsidebar :adminName="$admin->name" id="sidebar"
+        class="md:translate-x-0 -translate-x-full fixed md:static top-0 left-0 h-screen w-64 bg-red-600 transition-transform duration-300"></x-adminsidebar>
     <!-- Konten Utama -->
     <div class="flex-1 p-4 md:p-6 ml-0 md:ml-64 transition-all">
         <!-- Tombol Hamburger (Hanya muncul di layar kecil) -->

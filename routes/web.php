@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Auth\PasswordResetController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\EnsureAuthenticated;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -45,7 +46,7 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
 });
 
 
-Route::group(['middleware' => ['auth', 'check_role:admin']], function () {
+Route::group(['middleware' => [EnsureAuthenticated::class, 'check_role:admin']], function () {
     // ADMIN
     Route::get('/admin/dashboard', [DashboardController::class, 'index']);
 

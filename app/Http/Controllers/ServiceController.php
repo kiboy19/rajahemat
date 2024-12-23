@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Services\SmmNusantaraFetcher;
 
 class ServiceController extends Controller
@@ -31,30 +32,30 @@ class ServiceController extends Controller
     }
 
     /**
-     * Menampilkan daftar layanan.
+     * Menampilkan daftar layanan untuk admin.
      */
-    public function index(Request $request)
+    public function adminIndex(Request $request)
     {
+        $admin = Auth::user(); // Dapatkan data admin yang sedang login
         $categories = Category::all();
 
         $query = Service::with('category');
 
-        // Filter kategori jika dipilih
+        // Filter berdasarkan kategori
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
 
         // Pencarian berdasarkan nama layanan
         if ($request->filled('search')) {
-            $searchTerm = $request->search;
-            $query->where('name', 'like', '%' . $searchTerm . '%');
+            $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        // Sortir harga
+        // Sortir data
         if ($request->filled('sort')) {
-            if ($request->sort == 'price_asc') {
+            if ($request->sort === 'price_asc') {
                 $query->orderBy('price', 'asc');
-            } elseif ($request->sort == 'price_desc') {
+            } elseif ($request->sort === 'price_desc') {
                 $query->orderBy('price', 'desc');
             }
         } else {
@@ -64,14 +65,25 @@ class ServiceController extends Controller
         // Pagination
         $services = $query->simplePaginate(10)->withQueryString();
 
-        // Jika request AJAX (live search), kita kembalikan partial view saja
-        if ($request->ajax()) {
-            return response()->json([
-                'html' => view('services.partials.services_table', compact('services'))->render(),
-            ]);
-        }
+        // Return ke view
+        return view('admin.services', compact('admin', 'services', 'categories'));
+    }
 
-        return view('services.index', compact('services', 'categories'));
+    /**
+     * Mengambil data layanan dari API menggunakan Guzzle.
+     */
+    public function fetchServices()
+    {
+        $fetcher = new SmmNusantaraFetcher();
+        $result = $fetcher->fetchAndStoreServices();
+
+        if ($result['status']) {
+            return redirect()
+                ->route('admin.services.index')
+                ->with('success', $result['message']);
+        } else {
+            return back()->with('error', $result['message']);
+        }
     }
 
 
@@ -145,66 +157,5 @@ class ServiceController extends Controller
         $service->delete();
 
         return redirect()->route('admin.services.index')->with('success', 'Layanan berhasil dihapus.');
-    }
-
-    public function adminIndex(Request $request)
-    {
-        $categories = Category::all();
-
-        $query = Service::with('category');
-
-        // Filter kategori jika dipilih
-        if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
-        }
-
-        // Pencarian berdasarkan nama layanan
-        if ($request->filled('search')) {
-            $searchTerm = $request->search;
-            $query->where('name', 'like', '%' . $searchTerm . '%');
-        }
-
-        // Sortir harga
-        if ($request->filled('sort')) {
-            if ($request->sort == 'price_asc') {
-                $query->orderBy('price', 'asc');
-            } elseif ($request->sort == 'price_desc') {
-                $query->orderBy('price', 'desc');
-            }
-        } else {
-            $query->orderBy('id', 'asc'); // Default sorting
-        }
-
-        // Pagination
-        $services = $query->simplePaginate(10)->withQueryString();
-
-        // Jika request AJAX (live search), bisa kembalikan partial view
-        if ($request->ajax()) {
-            // Buat partial khusus admin, misalnya 'admin.partials.services_table'
-            return response()->json([
-                'html' => view('admin.partials.services_table', compact('services'))->render(),
-            ]);
-        }
-
-        // Return ke view admin, misalnya 'admin.services'
-        // Nanti kita sesuaikan agar file ini menampilkan tabel dgn Tailwind
-        return view('admin.services', compact('services', 'categories'));
-    }
-
-    /**
-     * Mengambil data layanan dari API menggunakan Guzzle.
-     */
-    public function fetchServices()
-    {
-        $fetcher = new SmmNusantaraFetcher();
-        $result = $fetcher->fetchAndStoreServices();
-
-        if ($result['status']) {
-            return redirect()
-                ->route('admin.services.index')
-                ->with('success', $result['message']);
-        } else {
-            return back()->with('error', $result['message']);
-        }
     }
 }

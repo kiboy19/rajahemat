@@ -12,10 +12,6 @@
 
 <body class="bg-white font-sans">
     <div class="min-h-screen flex flex-col md:flex-row">
-        <!-- Sidebar (x-adminsidebar) -->
-        <x-adminsidebar id="sidebar"
-            class="md:translate-x-0 -translate-x-full fixed md:static top-0 left-0 h-screen w-64 bg-red-600 transition-transform duration-300">
-        </x-adminsidebar>
         {{ $slot }}
         <!-- Script untuk Toggle Sidebar -->
         <script>
