@@ -113,7 +113,7 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $categories = Category::all();
-        return view('admin.edit', compact('service', 'categories'));
+        return view('admin.services.edit', compact('service', 'categories'));
     }
 
     /**
