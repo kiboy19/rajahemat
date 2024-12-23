@@ -113,7 +113,7 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         $categories = Category::all();
-        return view('services.edit', compact('service', 'categories'));
+        return view('admin.edit', compact('service', 'categories'));
     }
 
     /**
@@ -134,7 +134,7 @@ class ServiceController extends Controller
 
         $service->update($request->all());
 
-        return redirect()->route('services.index')->with('success', 'Layanan berhasil diperbarui.');
+        return redirect()->route('admin.services.index')->with('success', 'Layanan berhasil diperbarui.');
     }
 
     /**
