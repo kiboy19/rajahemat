@@ -6,9 +6,9 @@
       </div>
       <nav class="space-y-2">
         <a class="block py-2 px-4 bg-red-800 rounded-lg" href="user/user">Dashboard User</a>
-        <a class="block py-2 px-4 rounded-lg" href="/user/history">Riwayat Order</a>
+        <a class="block py-2 px-4 rounded-lg" href="/user/history">Orders</a>
         <a class="block py-2 px-4 rounded-lg" href="/user/deposit">Deposit</a>
-        <a class="block py-2 px-4 rounded-lg" href="#">Service</a>
+        <a class="block py-2 px-4 rounded-lg" href="/user/services">Services</a>
         <a class="block py-2 px-4 rounded-lg" href="/logout">Logout</a>
       </nav>
     </div>

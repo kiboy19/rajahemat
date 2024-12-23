@@ -37,6 +37,10 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
         return view('user/history');
     });
 
+    Route::get('/user/services', function () {
+        return view('user/services');
+    });
+
     // tambahkan akses lain untuk user
 });
 
