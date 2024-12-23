@@ -34,7 +34,7 @@
       <x-history-content-statusbtn></x-history-content-statusbtn>
 
       <!-- Scrollable Table -->
-      
+      <x-history-content-table></x-history-content-table>
     </main>
   </div>
 
