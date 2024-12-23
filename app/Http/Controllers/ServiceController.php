@@ -82,7 +82,7 @@ class ServiceController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('services.create', compact('categories'));
+        return view('admin.services.create', compact('categories'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ServiceController extends Controller
 
         Service::create($request->all());
 
-        return redirect()->route('services.index')->with('success', 'Layanan berhasil ditambahkan.');
+        return redirect()->route('admin.services.index')->with('success', 'Layanan berhasil ditambahkan.');
     }
 
     /**

@@ -34,24 +34,15 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
 
 
 Route::group(['middleware' => ['auth', 'check_role:admin']], function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index']);
-
-
-    // Route::get('/admin/services', );
-    // Route::get('/admin/services/', [DashboardController::class, 'servicesindex'], [ServiceController::class, 'adminIndex'])->middleware('auth');
-    Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
-    Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
-    Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
-    Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update');
-    Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
-
     // ADMIN
+    Route::get('/admin/dashboard', [DashboardController::class, 'index']);
 
     // Ganti route statis dengan method adminIndex di ServiceController
     Route::get('/admin/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
 
     // Rute untuk mengambil data dari API
     Route::post('admin/services/fetch', [ServiceController::class, 'fetchServices'])->name('admin.services.fetch');
+
     // Operasi CRUD di admin tetap mengacu pada ServiceController
     Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
     Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
