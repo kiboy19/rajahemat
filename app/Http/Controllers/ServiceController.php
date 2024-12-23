@@ -144,7 +144,7 @@ class ServiceController extends Controller
     {
         $service->delete();
 
-        return redirect()->route('services.index')->with('success', 'Layanan berhasil dihapus.');
+        return redirect()->route('admin.services.index')->with('success', 'Layanan berhasil dihapus.');
     }
 
     public function adminIndex(Request $request)
