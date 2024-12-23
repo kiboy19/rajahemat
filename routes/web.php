@@ -33,6 +33,10 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
         return view('user/deposit');
     });
 
+    Route::get('/user/history', function () {
+        return view('user/history');
+    });
+
     // tambahkan akses lain untuk user
 });
 
