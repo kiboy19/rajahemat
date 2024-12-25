@@ -1,4 +1,4 @@
-@props(['adminName'])
+@props(['adminName' => 'Admin'])
 
 <div id="sidebar"
     class="bg-red-600 text-white w-64 p-4 fixed top-0 left-0 h-full transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">

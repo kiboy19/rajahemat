@@ -1,6 +1,20 @@
 @props(['admin', 'totalUsers', 'users'])
 
 <div class="flex-1 p-6 ml-0 md:ml-64 transition-all">
+    <!-- Pesan Flash -->
+    @if (session('success'))
+        <div class="mb-4 p-4 bg-green-200 text-green-800 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="mb-4 p-4 bg-red-200 text-red-800 rounded">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <!-- Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <div class="bg-white p-6 rounded shadow">
             <p class="text-gray-600">Status Account</p>
@@ -16,28 +30,61 @@
         </div>
     </div>
 
-    <div class="bg-white p-6 rounded shadow">
-        <h2 class="text-xl font-bold mb-4">List Users</h2>
-        <table class="w-full table-auto">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2">Name</th>
-                    <th class="px-4 py-2">Email</th>
-                    <th class="px-4 py-2">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
-                    <tr>
-                        <td class="px-4 py-2">{{ $user->name }}</td>
-                        <td class="px-4 py-2">{{ $user->email }}</td>
-                        <td class="px-4 py-2">
-                            <a href="#" class="text-blue-500">Edit</a> |
-                            <a href="#" class="text-red-500">Delete</a>
-                        </td>
+    <!-- List Users -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">List Users</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                <thead>
+                    <tr class="bg-gray-100 border-b">
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            Name
+                        </th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            Email
+                        </th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            Action
+                        </th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    @foreach ($users as $user)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-gray-700 text-sm">{{ $user->name }}</td>
+                            <td class="px-6 py-4 text-gray-700 text-sm">{{ $user->email }}</td>
+                            <td class="px-6 py-4 text-gray-700 text-sm">
+                                <div class="flex items-center space-x-4">
+                                    <!-- Tombol Edit -->
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"
+                                        class="text-blue-500 hover:text-blue-700 flex items-center">
+                                        <i class="fas fa-edit mr-1"></i>Edit
+                                    </a>
+                                    <!-- Tombol Delete -->
+                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="text-red-500 hover:text-red-700 flex items-center">
+                                            <i class="fas fa-trash mr-1"></i>Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    @if ($users->isEmpty())
+                        <tr>
+                            <td colspan="3" class="px-6 py-4 text-center text-gray-500">
+                                Tidak ada pengguna ditemukan.
+                            </td>
+                        </tr>
+                    @endif
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </div>
