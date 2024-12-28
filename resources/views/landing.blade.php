@@ -1,23 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // Fungsi untuk toggle navbar
-        function toggleNavbar() {
-            const navMenu = document.getElementById('nav-menu');
-            navMenu.classList.toggle('hidden');
-        }
-    </script>
-</head>
-<body class="bg-red-900">
-    
+<x-app-layout>
     <!-- Navbar -->
     <x-navbar></x-navbar>
-
 
     <!-- Hero Section -->
     <x-hero-login></x-hero-login>
@@ -34,5 +17,4 @@
     <!-- Footer -->
     <x-footer></x-footer>
 
-</body>
-</html>
+</x-app-layout>
