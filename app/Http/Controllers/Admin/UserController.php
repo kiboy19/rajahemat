@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
 class UserController extends Controller
 {
     /**
@@ -17,7 +14,6 @@ class UserController extends Controller
         $admin = Auth::user();
         return view('admin.users.edit', compact('admin', 'user'));
     }
-
     /**
      * Memperbarui data pengguna.
      */
@@ -27,12 +23,9 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
         ]);
-
         $user->update($request->only(['name', 'email']));
-
         return redirect()->route('admin.dashboard')->with('success', 'User berhasil diperbarui.');
     }
-
     /**
      * Menghapus pengguna.
      */
@@ -42,9 +35,7 @@ class UserController extends Controller
         if (auth()->id() === $user->id) {
             return redirect()->route('admin.dashboard')->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
         }
-
         $user->delete();
-
         return redirect()->route('admin.dashboard')->with('success', 'User berhasil dihapus.');
     }
 }
