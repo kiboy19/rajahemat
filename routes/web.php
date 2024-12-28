@@ -6,6 +6,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\EnsureAuthenticated;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -47,20 +48,23 @@ Route::group(['middleware' => [EnsureAuthenticated::class, 'check_role:admin']],
     // ADMIN
     Route::get('/admin/dashboard', [DashboardController::class, 'index']);
 
-    // Ganti route statis dengan method adminIndex di ServiceController
+    // Dashboard Admin
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Rute untuk layanan admin
     Route::get('/admin/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
-
-    // Rute untuk mengambil data dari API
     Route::post('admin/services/fetch', [ServiceController::class, 'fetchServices'])->name('admin.services.fetch');
-
-    // Operasi CRUD di admin tetap mengacu pada ServiceController
     Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
     Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
     Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
     Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update');
     Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
 
-    // tambahkan akses lain untuk admin
+    // Tambahkan route untuk users
+    // Rute untuk Edit, Update, dan Delete User
+    Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 });
 
 Route::get('/logout', [AuthController::class, 'logout']);
