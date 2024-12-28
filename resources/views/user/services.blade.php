@@ -1,74 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-  <style>
-    body {
-      overflow-x: hidden;
-    }
-  </style>
-</head>
-<body class="bg-gray-100 font-sans">
+<x-user-layout>
   <div class="relative min-h-screen">
     <!-- Sidebar -->
-    <x-sidebardashboard></x-sidebardashboard>
+    <x-sidebardashboard :userName="$user->name"></x-sidebardashboard>
+    
+    <div class="flex justify-between items-center mb-6 p-4 md:hidden">
+      <h1 class="text-xl font-bold">Services</h1>
+      <button id="hamburger"
+          class="text-white bg-red-600 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+          <i class="fas fa-bars"></i>
+      </button>
+    </div>
 
     <!-- Main Content -->
     <main id="main-content" class="p-4 lg:p-8 transition-all duration-300 ease-in-out md:ml-64">
-      <!-- Hamburger Menu -->
-      <div class="flex justify-between items-center mb-6 md:hidden">
-        <h1 class="text-xl font-bold">Services</h1>
-        <button id="hamburger" class="text-white bg-red-900 p-2 rounded-lg">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-
       <!-- Categories -->
       <x-services-content-category></x-services-content-category>
 
       <!-- Search and Filter -->
-      <x-services-content-searchfilter></x-services-content-searchfilter>
+      <x-services-content-searchfilter :Category="$categories"></x-services-content-searchfilter>
 
       <!-- Table -->
-      <x-services-content-table></x-services-content-table>
+      <x-services-content-table :Services="$services"></x-services-content-table>
     </main>
   </div>
 
   <script>
-    const hamburger = document.getElementById("hamburger");
-    const sidebar = document.getElementById("sidebar");
-  
-    // Fungsi untuk menyembunyikan sidebar di layar kecil
-    function updateSidebarVisibility() {
-      if (window.innerWidth < 768) {
-        sidebar.classList.add("left-[-100%]"); // Menyembunyikan sidebar pada layar kecil
-        sidebar.classList.remove("left-0"); // Pastikan sidebar tidak terlihat
-      } else {
-        sidebar.classList.remove("left-[-100%]"); // Menampilkan sidebar pada layar besar
-        sidebar.classList.add("left-0");
-      }
+    // Live search function
+    const searchInput = document.querySelector("input[name='search']");
+    const categorySelect = document.querySelector("select[name='category']");
+    const searchButton = document.querySelector("button[type='submit']");
+    let timeout = null;
+
+    // Update the URL search params and trigger the search
+    function triggerSearch() {
+      const searchValue = searchInput.value;
+      const categoryValue = categorySelect.value;
+
+      // Update the page's query string dynamically
+      let url = new URL(window.location.href);
+      if (searchValue) url.searchParams.set('search', searchValue);
+      if (categoryValue) url.searchParams.set('category', categoryValue);
+      
+      window.location.href = url;
     }
-  
-    // Cek ukuran layar saat halaman pertama kali dimuat
-    document.addEventListener("DOMContentLoaded", () => {
-      updateSidebarVisibility();
+
+    // Event listener for live search (delay to avoid excess calls)
+    searchInput.addEventListener('input', function() {
+      clearTimeout(timeout);
+      timeout = setTimeout(triggerSearch, 500); // Delay by 500ms
     });
-  
-    // Update visibilitas sidebar setiap kali ukuran layar berubah
-    window.addEventListener("resize", updateSidebarVisibility);
-  
-    // Event untuk hamburger menu pada layar kecil
-    hamburger.addEventListener("click", () => {
-      if (window.innerWidth < 768) {
-        sidebar.classList.toggle("left-[-100%]"); // Toggle sidebar untuk ukuran layar kecil
-        sidebar.classList.toggle("left-0");
-      }
+
+    // Event listener for category change
+    categorySelect.addEventListener('change', triggerSearch);
+
+    // Event listener for manual search button
+    searchButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      triggerSearch();
     });
   </script>
-  
-</body>
-</html>
+</x-user-layout>

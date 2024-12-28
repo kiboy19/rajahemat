@@ -1,3 +1,4 @@
+@props(['Services'])
 <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
     <table class="min-w-full bg-white border border-gray-300">
         <thead class="bg-red-900 text-white">
@@ -13,16 +14,26 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-red-100">
-              <td class="px-4 py-2 border">13108</td>
-              <td class="px-4 py-2 border text-center"><i class="fas fa-bell-slash"></i></td>
-              <td class="px-4 py-2 border">Instagram Followers</td>
-              <td class="px-4 py-2 border">$4.50</td>
-              <td class="px-4 py-2 border">10</td>
-              <td class="px-4 py-2 border">1,000,000</td>
-              <td class="px-4 py-2 border text-center">365 Days Refill</td>
-              <td class="px-4 py-2 border text-center">365 Days Refill</td>
-            </tr>
-        </tbody>
+          @forelse($services as $service)
+              <tr class="bg-red-100">
+                  <td class="px-4 py-2 border">{{ $service->id }}</td>
+                  <td class="px-4 py-2 border text-center">{{ $service->name }}</td>
+                  <td class="px-4 py-2 border">{{ ucfirst($service->type) }}</td>
+                  <td class="px-4 py-2 border">{{ $service->category->name ?? '-' }}</td>
+                  <td class="px-4 py-2 border">Rp {{ number_format($service->price, 0, ',', '.') }}</td>
+                  <td class="px-4 py-2 border">{{ $service->min }}</td>
+                  <td class="px-4 py-2 border text-center">{{ $service->max }}</td>
+                  <td class="px-4 py-2 border text-center">{{ $service->description }}</td>
+              </tr>
+          @empty
+              <tr>
+                  <td colspan="8" class="text-center p-4">Layanan tidak tersedia</td>
+              </tr>
+          @endforelse
+      </tbody>
+      
     </table>
+    <div class="flex justify-center mt-3">
+      {{ $services->links() }}
+  </div>
 </div>
