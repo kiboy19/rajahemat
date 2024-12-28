@@ -158,4 +158,68 @@ class ServiceController extends Controller
 
         return redirect()->route('admin.services.index')->with('success', 'Layanan berhasil dihapus.');
     }
+
+    
+        /**
+     * Menampilkan daftar layanan untuk user FUNGSI KHUSUS DASHBOARD USER DIMULAI DARI SINI.
+     */
+    public function userIndex(Request $request)
+    {
+        $user = Auth::user(); // Dapatkan data user yang sedang login
+        $categories = Category::all();
+    
+        $query = Service::with('category');
+    
+        // Filter berdasarkan kategori
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+    
+        // Pencarian berdasarkan nama atau id layanan
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('id', 'like', '%' . $request->search . '%');
+            });
+        }
+    
+        // Sortir data
+        if ($request->filled('sort')) {
+            if ($request->sort === 'price_asc') {
+                $query->orderBy('price', 'asc');
+            } elseif ($request->sort === 'price_desc') {
+                $query->orderBy('price', 'desc');
+            }
+        } else {
+            $query->orderBy('id', 'asc'); // Default sorting
+        }
+    
+        // Pagination
+        $services = $query->simplePaginate(10)->withQueryString();
+    
+        // Return ke view
+        return view('user.services', compact('user', 'services', 'categories'));
+    }
+    
+
+    // Fungsi Untuk Menampilkan Nama User ketika login ke dashboard user halaman user
+    public function userNav(Request $request) {
+        $user = Auth::user(); // Dapatkan data user yang sedang login
+        // Return ke view
+        return view('user.user', compact('user'));
+    }
+
+    // Fungsi Untuk Menampilkan Nama User ketika login ke dashboard user halaman Deposit
+    public function userNavDeposit(Request $request) {
+        $user = Auth::user(); // Dapatkan data user yang sedang login
+        // Return ke view
+        return view('user.deposit', compact('user'));
+    }
+
+    // Fungsi Untuk Menampilkan Nama User ketika login ke dashboard user halaman Deposit
+    public function userNavHistory(Request $request) {
+        $user = Auth::user(); // Dapatkan data user yang sedang login
+        // Return ke view
+        return view('user.history', compact('user'));
+    }
 }

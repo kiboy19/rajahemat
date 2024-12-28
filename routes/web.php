@@ -26,21 +26,18 @@ Route::get('/auth-google-redirect', [AuthController::class, 'google_redirect']);
 Route::get('/auth-google-callback', [AuthController::class, 'google_callback']);
 
 Route::group(['middleware' => ['auth', 'check_role:user']], function () {
-    Route::get('/user/user', function () {
-        return view('user/user');
-    })->name('user');
 
-    Route::get('/user/deposit', function () {
-        return view('user/deposit');
-    });
+    // Route untuk menampilkan nama di navigasi halaman dashboard user
+    Route::get('/user/user', [ServiceController::class, 'userNav'])->name('user.services.userNav');
 
-    Route::get('/user/history', function () {
-        return view('user/history');
-    });
+    // Route untuk menampilkan nama di navigasi halaman deposit user
+    Route::get('/user/deposit', [ServiceController::class, 'userNavDeposit'])->name('user.services.userNavDeposit');
 
-    Route::get('/user/services', function () {
-        return view('user/services');
-    });
+    // Route untuk menampilkan nama di navigasi halaman deposit user
+    Route::get('/user/history', [ServiceController::class, 'userNavHistory'])->name('user.services.userNavHistory');
+
+    // Route untuk menampilkan services dan nama user yang login pada navigasi
+    Route::get('/user/services', [ServiceController::class, 'userIndex'])->name('user.services.index');
 
     // tambahkan akses lain untuk user
 });
