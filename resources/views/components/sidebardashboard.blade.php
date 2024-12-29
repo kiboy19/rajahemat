@@ -6,10 +6,15 @@
     <h2 class="text-xl mb-4">{{ $userName }}</h2>
   </div>
   <nav class="space-y-2">
-    <a class="block py-2 px-4 bg-red-800 rounded-lg" href="/user/user">Dashboard User</a>
-    <a class="block py-2 px-4 rounded-lg" href="/user/history">History Order</a>
-    <a class="block py-2 px-4 rounded-lg" href="/user/deposit">Deposit</a>
-    <a class="block py-2 px-4 rounded-lg" href="/user/services">Services</a>
-    <a class="block py-2 px-4 rounded-lg" href="/logout">Logout</a>
+    <a class="block py-2 px-4 {{ Request::is('user/user') ? 'bg-red-800' : 'hover:bg-red-700' }} rounded-lg" 
+        href="/user/user">Dashboard User</a>
+    <a class="block py-2 px-4 {{ Request::is('user/history') ? 'bg-red-800' : 'hover:bg-red-700' }} rounded-lg" 
+        href="/user/history">History Order</a>
+    <a class="block py-2 px-4 {{ Request::is('user/deposit') ? 'bg-red-800' : 'hover:bg-red-700' }} rounded-lg" 
+        href="/user/deposit">Deposit</a>
+    <a class="block py-2 px-4 {{ Request::is('user/services') ? 'bg-red-800' : 'hover:bg-red-700' }} rounded-lg" 
+        href="/user/services">Services</a>
+    <a class="block py-2 px-4 {{ Request::is('logout') ? 'bg-red-800' : 'hover:bg-red-700' }} rounded-lg" 
+        href="/logout">Logout</a>
   </nav>
 </div>
