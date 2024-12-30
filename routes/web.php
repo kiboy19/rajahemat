@@ -7,16 +7,15 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\EnsureAuthenticated;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/', function () {
-    return view('landing');
-});
-
+// Landing Page
 Route::get('/', fn() => view('landing'))->name('landing');
 Route::post('/', [AuthController::class, 'login']);
 
+// Authentication Routes
 Route::get('/register', fn() => view('auth.register'))->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
@@ -26,60 +25,58 @@ Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']
 Route::get('/auth-google-redirect', [AuthController::class, 'google_redirect']);
 Route::get('/auth-google-callback', [AuthController::class, 'google_callback']);
 
+// Routes untuk User
 Route::group(['middleware' => ['auth', 'check_role:user']], function () {
+    // Dashboard User
+    Route::get('/user/user', [SaldoController::class, 'showSaldo'])->name('user.showSaldo');
 
-    // Route untuk menampilkan nama di navigasi halaman dashboard user
-    Route::get('/user/user', [ServiceController::class, 'userNav'])->name('user.services.userNav');
+    // Deposit
+    Route::get('/user/deposit', [SaldoController::class, 'depositForm'])->name('user.depositForm');
+    Route::post('/user/deposit', [SaldoController::class, 'deposit'])->name('user.deposit');
 
-    // Route untuk menampilkan nama di navigasi halaman deposit user
-    Route::get('/user/deposit', [ServiceController::class, 'userNavDeposit'])->name('user.services.userNavDeposit');
-
-    // Route untuk menampilkan nama di navigasi halaman deposit user
+    // History
     Route::get('/user/history', [ServiceController::class, 'userNavHistory'])->name('user.services.userNavHistory');
 
-    // Route untuk menampilkan services dan nama user yang login pada navigasi
+    // Services
     Route::get('/user/services', [ServiceController::class, 'userIndex'])->name('user.services.index');
 
-    // tambahkan akses lain untuk user
+    // Tambahkan akses lain untuk user jika diperlukan
 });
 
-
+// Routes untuk Admin
 Route::group(['middleware' => [EnsureAuthenticated::class, 'check_role:admin']], function () {
-    // ADMIN
-    Route::get('/admin/dashboard', [DashboardController::class, 'index']);
-
     // Dashboard Admin
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    // Rute untuk layanan admin
+    // Layanan Admin
     Route::get('/admin/services', [ServiceController::class, 'adminIndex'])->name('admin.services.index');
-    Route::post('admin/services/fetch', [ServiceController::class, 'fetchServices'])->name('admin.services.fetch');
+    Route::post('/admin/services/fetch', [ServiceController::class, 'fetchServices'])->name('admin.services.fetch');
     Route::get('/admin/services/create', [ServiceController::class, 'create'])->name('admin.services.create');
     Route::post('/admin/services', [ServiceController::class, 'store'])->name('admin.services.store');
     Route::get('/admin/services/{service}/edit', [ServiceController::class, 'edit'])->name('admin.services.edit');
     Route::put('/admin/services/{service}', [ServiceController::class, 'update'])->name('admin.services.update');
     Route::delete('/admin/services/{service}', [ServiceController::class, 'destroy'])->name('admin.services.destroy');
 
-    // Tambahkan route untuk users
-    // Rute untuk Edit, Update, dan Delete User
+    // Users Admin
     Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    // Tambah Saldo oleh Admin
+    Route::get('/admin/tambahsaldo', [SaldoController::class, 'tambahSaldoForm'])->name('admin.tambahsaldo.form');
+    Route::post('/admin/tambahsaldo', [SaldoController::class, 'tambahSaldo'])->name('admin.tambahsaldo');
 });
 
+// Logout
 Route::get('/logout', [AuthController::class, 'logout']);
 
-// Rute untuk menampilkan daftar layanan
+// Layanan Umum
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-// Rute untuk menampilkan form membuat layanan baru
 Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
-// Rute untuk menyimpan layanan baru
 Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
-// Rute untuk menampilkan form edit layanan
 Route::get('/services/{service}/edit', [ServiceController::class, 'edit'])->name('services.edit');
-// Rute untuk memperbarui layanan
 Route::put('/services/{service}', [ServiceController::class, 'update'])->name('services.update');
-// Rute untuk menghapus layanan
 Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
-// Rute CRUD untuk kategori
+
+// CRUD untuk Kategori
 Route::resource('categories', CategoryController::class);

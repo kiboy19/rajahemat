@@ -1,5 +1,6 @@
- <!-- Main Content -->
- <div class="flex-1 p-6 ml-0 md:ml-64 transition-all">
+@props(['user'])
+<!-- Main Content -->
+<div class="flex-1 p-6 ml-0 md:ml-64 transition-all">
   <div class="flex justify-between items-center mb-6 p-4 md:hidden">
     <h1 class="text-xl font-bold">Dashboard User</h1>
     <button id="hamburger"
@@ -10,7 +11,7 @@
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
     <div class="bg-gray-200 p-4 rounded-lg">
       <p>Saldo</p>
-      <p class="text-xl font-bold">Rp 10.000</p>
+      <p class="text-xl font-bold">Rp {{ number_format($user->saldo, 0, ',', '.') }}</p>
     </div>
     <div class="bg-gray-200 p-4 rounded-lg">
       <p>Total Spending</p>
