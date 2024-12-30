@@ -39,11 +39,14 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password), 
+            'saldo' => 0, 
         ]);
     
         Auth::login($user); 
         return redirect('/'); 
     }
+    
+    
 
     public function google_redirect(){
 

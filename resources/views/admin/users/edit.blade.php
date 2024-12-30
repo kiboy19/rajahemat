@@ -1,7 +1,5 @@
 <x-admin-layout>
-    <x-adminsidebar :adminName="$admin->name" id="sidebar"
-        class="md:translate-x-0 -translate-x-full fixed md:static top-0 left-0 h-screen w-64 bg-red-600 transition-transform duration-300">
-    </x-adminsidebar>
+    <x-adminsidebar :adminName="$admin->name"></x-adminsidebar>
 
     <div class="flex-1 p-6 ml-0 md:ml-64 transition-all">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit User</h1>
@@ -16,6 +14,9 @@
                 <input type="text" name="name" id="name" value="{{ $user->name }}"
                     class="block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
                     placeholder="Enter user name" aria-label="Name">
+                @error('name')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Email Input -->
@@ -24,6 +25,20 @@
                 <input type="email" name="email" id="email" value="{{ $user->email }}"
                     class="block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
                     placeholder="Enter user email" aria-label="Email">
+                @error('email')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Saldo Input -->
+            <div class="mb-4">
+                <label for="saldo" class="block text-sm font-medium text-gray-700 mb-2">Saldo</label>
+                <input type="number" name="saldo" id="saldo" value="{{ $user->saldo }}"
+                    class="block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+                    placeholder="Enter user saldo" aria-label="Saldo">
+                @error('saldo')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
             </div>
 
             <!-- Submit Button -->

@@ -22,7 +22,7 @@
         </div>
         <div class="bg-white p-6 rounded shadow">
             <p class="text-gray-600">Total Balance</p>
-            <h2 class="text-2xl font-bold">-</h2>
+            <h2 class="text-2xl font-bold">Rp {{ number_format($admin->saldo, 0, ',', '.') }}</h2>
         </div>
         <div class="bg-white p-6 rounded shadow">
             <p class="text-gray-600">Total Users</p>
@@ -44,6 +44,9 @@
                             Email
                         </th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                            Saldo
+                        </th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
                             Action
                         </th>
                     </tr>
@@ -53,6 +56,7 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 text-gray-700 text-sm">{{ $user->name }}</td>
                             <td class="px-6 py-4 text-gray-700 text-sm">{{ $user->email }}</td>
+                            <td class="px-6 py-4 text-gray-700 text-sm">Rp {{ number_format($user->saldo, 0, ',', '.') }}</td>
                             <td class="px-6 py-4 text-gray-700 text-sm">
                                 <div class="flex items-center space-x-4">
                                     <!-- Tombol Edit -->
@@ -77,7 +81,7 @@
 
                     @if ($users->isEmpty())
                         <tr>
-                            <td colspan="3" class="px-6 py-4 text-center text-gray-500">
+                            <td colspan="4" class="px-6 py-4 text-center text-gray-500">
                                 Tidak ada pengguna ditemukan.
                             </td>
                         </tr>
