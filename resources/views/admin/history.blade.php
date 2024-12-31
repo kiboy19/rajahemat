@@ -28,7 +28,7 @@
                           <th class="py-3 px-4 text-center">User</th>
                           <th class="py-3 px-4 text-center">Tanggal</th>
                           <th class="py-3 px-4 text-center">Link</th>
-                          <th class="py-3 px-4 text-center">Harga</th>
+                          <th class="py-3 px-4 text-center">Biaya</th>
                           <th class="py-3 px-4 text-center">Jumlah</th>
                           <th class="py-3 px-4 text-center">Layanan</th>
                           <th class="py-3 px-4 text-center">Status</th>
@@ -44,7 +44,7 @@
                             <td class="py-3 px-4 text-center">
                               <a href="{{ $order->link }}" target="_blank" class="text-blue-500 underline">{{ parse_url($order->link, PHP_URL_HOST) }}</a>
                             </td>
-                            <td class="py-3 px-4 text-center">Rp {{ number_format($order->price, 0, ',', '.') }}</td>
+                            <td class="py-3 px-4 text-center">Rp {{ number_format($order->total, 0, ',', '.') }}</td>
                             <td class="py-3 px-4 text-center">{{ $order->quantity }}</td>
                             <td class="py-3 px-4 text-center">{{ $order->service->name }}</td>
                             <td class="py-3 px-4 text-center capitalize">{{ $order->status }}</td>
