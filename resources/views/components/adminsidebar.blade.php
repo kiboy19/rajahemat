@@ -13,6 +13,8 @@
             href="{{ route('admin.dashboard') }}">Home</a>
         <a class="block py-2 px-4 {{ Request::is('admin/services') ? 'bg-blue-800' : 'hover:bg-blue-700' }} rounded-lg transition"
             href="{{ route('admin.services.index') }}">Service</a>
+        <a class="block py-2 px-4 {{ Request::is('admin/history') ? 'bg-blue-800' : 'hover:bg-blue-700' }} rounded-lg transition"
+            href="{{ route('admin.history') }}">History</a>
         <a class="block py-2 px-4 {{ Request::is('admin/tambahsaldo') ? 'bg-blue-800' : 'hover:bg-blue-700' }} rounded-lg transition"
             href="{{ route('admin.tambahsaldo.form') }}">Tambah Saldo</a>
         <a class="block py-2 px-4 {{ Request::is('logout') ? 'bg-blue-800' : 'hover:bg-blue-700' }} rounded-lg transition"

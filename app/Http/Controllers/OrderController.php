@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input
+        // Validasi input dasar
         $request->validate([
             'service_id' => 'required|exists:services,id',
             'link' => 'required|url',
@@ -25,7 +25,18 @@ class OrderController extends Controller
         $user = Auth::user();
         $service = Service::findOrFail($request->service_id);
         $quantity = $request->quantity;
-        $totalPrice = $service->price * $quantity;
+
+        // Validasi jumlah berdasarkan min dan max
+        if ($quantity < $service->min) {
+            return redirect()->back()->with('error', 'Jumlah yang anda pesan kurang dari minimal pemesanan.');
+        }
+
+        if ($quantity > $service->max) {
+            return redirect()->back()->with('error', 'Jumlah yang anda pesan melebihi batas maksimal pemesanan.');
+        }
+
+        // Hitung total harga: (price / 1000) * quantity
+        $totalPrice = ($service->price / 1000) * $quantity;
 
         // Cek saldo user
         if ($user->saldo < $totalPrice) {
@@ -46,7 +57,7 @@ class OrderController extends Controller
                 'service_id' => $service->id,
                 'link' => $request->link,
                 'quantity' => $quantity,
-                'price' => $service->price,
+                'price' => $service->price, // Harga per 1000 unit
                 'total' => $totalPrice,
                 'status' => 'pending',
             ]);

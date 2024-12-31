@@ -11,46 +11,61 @@
       overflow-x: hidden;
     }
     .fade-in {
-        animation: fadeIn 0.5s ease-in-out;
+      animation: fadeIn 0.5s ease-in-out;
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .opacity-0 {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
     }
   </style>
 </head>
 <body class="bg-gray-100 font-sans">
-  @if(session('success'))
-    <div class="fixed top-0 right-0 m-4 p-4 bg-green-500 text-white rounded-lg fade-in">
-      {{ session('success') }}
-    </div>
-  @endif
-  @if(session('error'))
-    <div class="fixed top-0 right-0 m-4 p-4 bg-red-500 text-white rounded-lg fade-in">
-      {{ session('error') }}
-    </div>
-  @endif
+   <!-- Notifikasi Sukses -->
+   @if(session('success'))
+   <div class="fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50 fade-in">
+       {{ session('success') }}
+   </div>
+@endif
+
+<!-- Notifikasi Error -->
+@if(session('error'))
+   <div class="fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50 fade-in">
+       {{ session('error') }}
+   </div>
+@endif
 {{ $slot }}
 <!-- Script untuk Toggle Sidebar -->
 <script>
   const hamburger = document.getElementById("hamburger");
   const sidebar = document.getElementById("sidebar");
 
-  hamburger.addEventListener("click", () => {
-      // Toggle kelas agar sidebar bisa muncul / sembunyi
-      sidebar.classList.toggle("-translate-x-full");
+  if (hamburger && sidebar) {
+      hamburger.addEventListener("click", () => {
+          // Toggle kelas agar sidebar bisa muncul / sembunyi
+          sidebar.classList.toggle("-translate-x-full");
+      });
+  }
+
+  // Script untuk Menghilangkan Notifikasi setelah 3 detik
+  window.addEventListener('load', () => {
+      setTimeout(() => {
+          const notifications = document.querySelectorAll('.fade-in');
+          notifications.forEach(notification => {
+              notification.classList.add('opacity-0');
+              setTimeout(() => {
+                  notification.remove();
+              }, 500); // Waktu transisi
+          });
+      }, 3000); // 3 detik
   });
 </script>
-    <!-- Script untuk Toggle Sidebar -->
-    <script>
-        const hamburger = document.getElementById("hamburger");
-        const sidebar = document.getElementById("sidebar");
 
-        hamburger.addEventListener("click", () => {
-            // Toggle kelas agar sidebar bisa muncul / sembunyi
-            sidebar.classList.toggle("-translate-x-full");
-        });
-    </script>
+
 </body>
 </html>
