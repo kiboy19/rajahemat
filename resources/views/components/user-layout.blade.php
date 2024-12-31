@@ -10,10 +10,38 @@
     body {
       overflow-x: hidden;
     }
+    .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
   </style>
 </head>
 <body class="bg-gray-100 font-sans">
-    {{ $slot }}
+  @if(session('success'))
+    <div class="fixed top-0 right-0 m-4 p-4 bg-green-500 text-white rounded-lg fade-in">
+      {{ session('success') }}
+    </div>
+  @endif
+  @if(session('error'))
+    <div class="fixed top-0 right-0 m-4 p-4 bg-red-500 text-white rounded-lg fade-in">
+      {{ session('error') }}
+    </div>
+  @endif
+{{ $slot }}
+<!-- Script untuk Toggle Sidebar -->
+<script>
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.getElementById("sidebar");
+
+  hamburger.addEventListener("click", () => {
+      // Toggle kelas agar sidebar bisa muncul / sembunyi
+      sidebar.classList.toggle("-translate-x-full");
+  });
+</script>
     <!-- Script untuk Toggle Sidebar -->
     <script>
         const hamburger = document.getElementById("hamburger");

@@ -9,9 +9,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 </head>
+<style>
+    .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
 
 <body class="bg-white font-sans">
     <div class="min-h-screen flex flex-col md:flex-row">
+        @if(session('success'))
+        <div class="fixed top-0 right-0 m-4 p-4 bg-green-500 text-white rounded-lg fade-in">
+            {{ session('success') }}
+        </div>
+        @endif
+        @if(session('error'))
+        <div class="fixed top-0 right-0 m-4 p-4 bg-red-500 text-white rounded-lg fade-in">
+            {{ session('error') }}
+        </div>
+        @endif
         {{ $slot }}
         <!-- Script untuk Toggle Sidebar -->
         <script>

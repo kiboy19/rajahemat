@@ -12,7 +12,6 @@
 
     <!-- Main Content -->
     <main id="main-content" class="flex-1 lg:ml-64 p-4 lg:p-8 transition-all duration-300 ease-in-out">
-
       <!-- Search Bar -->
       <x-history-content-searchbar></x-history-content-searchbar>
 
@@ -20,7 +19,45 @@
       <x-history-content-statusbtn></x-history-content-statusbtn>
 
       <!-- Scrollable Table -->
-      <x-history-content-table></x-history-content-table>
+      <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+          <table class="w-full min-w-[700px]">
+              <thead class="bg-red-900 text-white">
+                  <tr>
+                    <th class="py-3 px-4 text-center">ID</th>
+                    <th class="py-3 px-4 text-center">Tanggal</th>
+                    <th class="py-3 px-4 text-center">Link</th>
+                    <th class="py-3 px-4 text-center">Harga</th>
+                    <th class="py-3 px-4 text-center">Jumlah</th>
+                    <th class="py-3 px-4 text-center">Layanan</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @forelse($orders as $order)
+                  <tr>
+                      <td class="py-3 px-4 text-center">{{ $order->id }}</td>
+                      <td class="py-3 px-4 text-center">{{ $order->created_at->format('Y-m-d') }}</td>
+                      <td class="py-3 px-4 text-center">
+                        <a href="{{ $order->link }}" target="_blank" class="text-blue-500 underline">{{ parse_url($order->link, PHP_URL_HOST) }}</a>
+                      </td>
+                      <td class="py-3 px-4 text-center">Rp {{ number_format($order->price, 0, ',', '.') }}</td>
+                      <td class="py-3 px-4 text-center">{{ $order->quantity }}</td>
+                      <td class="py-3 px-4 text-center">{{ $order->service->name }}</td>
+                      <td class="py-3 px-4 text-center capitalize">{{ $order->status }}</td>
+                  </tr>
+                  @empty
+                  <tr>
+                      <td colspan="7" class="py-3 px-4 text-center">Tidak ada pemesanan.</td>
+                  </tr>
+                  @endforelse
+              </tbody>
+          </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-4">
+          {{ $orders->links('pagination::tailwind') }}
+      </div>
     </main>
   </div>
 </x-user-layout>

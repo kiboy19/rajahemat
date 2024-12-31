@@ -1,4 +1,4 @@
-@props(['user'])
+@props(['user', 'services'])
 <!-- Main Content -->
 <div class="flex-1 p-6 ml-0 md:ml-64 transition-all">
   <div class="flex justify-between items-center mb-6 p-4 md:hidden">
@@ -49,35 +49,38 @@
     </div>
   </div>
 
-  <div class="bg-white p-6 rounded-lg">
-    <div class="mb-4">
-      <div class="relative">
-        <input class="w-full p-2 border rounded-lg" placeholder="Search" type="text"/>
-        <i class="fas fa-search absolute top-2 right-2 text-gray-500"></i>
-      </div>
-    </div>
-    <div class="mb-4">
-      <label class="block mb-2" for="category">Category</label>
-      <select class="w-full p-2 border rounded-lg" id="category">
-        <option>Instagram Followers</option>
-        <option>TikTok Followers</option>
-        <option>Youtube Subscribers</option>
-        <option>Spotify Followers</option>
-      </select>
-    </div>
-    <div class="mb-4">
-      <label class="block mb-2" for="category">Service</label>
-      <select class="w-full p-2 border rounded-lg" id="category">
-        <option>Instagram Followers S-66 | Maks: 5M | High-Quality | Real | Low Drop | AR30 | 50K/Days</option>
-      </select>
-    </div>
-    <div class="mb-4">
-      <label class="block mb-2" for="link">Link</label>
-      <input class="w-full p-2 border rounded-lg" id="link" type="text"/>
-    </div>
-    <div class="mb-4">
-      <label class="block mb-2" for="quantity">Quantity</label>
-      <input class="w-full p-2 border rounded-lg" id="quantity" type="text"/>
-    </div>
-  </div>    
+   <!-- Form Pemesanan Layanan -->
+   <div class="bg-white p-6 rounded-lg mb-6">
+    <h3 class="text-lg font-bold mb-4">Pesan Layanan</h3>
+    <form action="{{ route('user.order.store') }}" method="POST">
+        @csrf
+        <div class="mb-4">
+            <label class="block mb-2" for="service_id">Layanan</label>
+            <select name="service_id" id="service_id" class="w-full p-2 border rounded-lg" required>
+                <option value="">Pilih Layanan</option>
+                @foreach($services as $service)
+                    <option value="{{ $service->id }}">{{ $service->name }} - Rp {{ number_format($service->price, 0, ',', '.') }}</option>
+                @endforeach
+            </select>
+            @error('service_id')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mb-4">
+            <label class="block mb-2" for="link">Link Akun</label>
+            <input type="url" name="link" id="link" class="w-full p-2 border rounded-lg" placeholder="https://example.com/username" required>
+            @error('link')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mb-4">
+            <label class="block mb-2" for="quantity">Jumlah</label>
+            <input type="number" name="quantity" id="quantity" class="w-full p-2 border rounded-lg" min="1" required>
+            @error('quantity')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+        <button type="submit" class="bg-red-900 text-white py-2 px-4 rounded-lg">Pesan</button>
+    </form>
+</div>
 </div>
