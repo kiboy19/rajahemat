@@ -36,7 +36,7 @@ class ServiceController extends Controller
      */
     public function adminIndex(Request $request)
     {
-        $admin = Auth::user(); // Dapatkan data admin yang sedang login
+        $admin = Auth::user(); 
         $categories = Category::all();
 
         $query = Service::with('category');

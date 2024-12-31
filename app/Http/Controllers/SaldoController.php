@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Service;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SaldoController extends Controller
@@ -14,7 +15,8 @@ class SaldoController extends Controller
     public function showSaldo()
     {
         $user = Auth::user();
-        return view('user.user', compact('user'));
+        $services = Service::all();
+        return view('user.user', compact('user', 'services'));
     }
 
     /**

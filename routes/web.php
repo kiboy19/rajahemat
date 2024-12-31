@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\EnsureAuthenticated;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -40,6 +41,12 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
     // Services
     Route::get('/user/services', [ServiceController::class, 'userIndex'])->name('user.services.index');
 
+    // Pemesanan Layanan
+    Route::post('/user/order', [OrderController::class, 'store'])->name('user.order.store');
+
+    // History Pemesanan
+    Route::get('/user/history', [OrderController::class, 'userHistory'])->name('user.history');
+
     // Tambahkan akses lain untuk user jika diperlukan
 });
 
@@ -65,6 +72,14 @@ Route::group(['middleware' => [EnsureAuthenticated::class, 'check_role:admin']],
     // Tambah Saldo oleh Admin
     Route::get('/admin/tambahsaldo', [SaldoController::class, 'tambahSaldoForm'])->name('admin.tambahsaldo.form');
     Route::post('/admin/tambahsaldo', [SaldoController::class, 'tambahSaldo'])->name('admin.tambahsaldo');
+
+     // History Pemesanan Admin
+     Route::get('/admin/history', [OrderController::class, 'adminHistory'])->name('admin.history');
+
+     // Aksi Admin pada Pemesanan
+     Route::post('/admin/order/{order}/process', [OrderController::class, 'processOrder'])->name('admin.order.process');
+     Route::post('/admin/order/{order}/cancel', [OrderController::class, 'cancelOrder'])->name('admin.order.cancel');
+     Route::post('/admin/order/{order}/complete', [OrderController::class, 'completeOrder'])->name('admin.order.complete');
 });
 
 // Logout
