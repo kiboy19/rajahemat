@@ -1,4 +1,8 @@
-<x-user-layout>
+<x-user-layout :title="'Deposit'">
+  @section('content')
+    <h1>Deposit</h1>
+  @endsection
+
   <div class="flex min-h-screen relative">
     <!-- Sidebar -->
     <x-sidebardashboard :userName="$user->name"></x-sidebardashboard>

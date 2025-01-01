@@ -1,4 +1,8 @@
-<x-admin-layout>
+<x-admin-layout :title="'Saldo'">
+    @section('content')
+        <h1>Saldo</h1>
+    @endsection
+
     <x-adminsidebar :adminName="$admin->name"></x-adminsidebar>
     <div class="flex-1 p-6 ml-0 md:ml-64 transition-all">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Tambah Saldo</h1>

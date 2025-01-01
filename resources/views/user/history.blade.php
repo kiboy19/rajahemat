@@ -1,4 +1,7 @@
-<x-user-layout>
+<x-user-layout :title="'History'">
+  @section('content')
+    <h1>History</h1>
+  @endsection
   <div class="relative min-h-screen">
     <!-- Sidebar -->
     <x-sidebardashboard :userName="$user->name"></x-sidebardashboard>
