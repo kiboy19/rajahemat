@@ -1,4 +1,8 @@
-<x-admin-layout>
+<x-admin-layout :title="'Dashboard'">
+    @section('content')
+        <h1>Dashboard</h1>
+    @endsection
+    
     <x-adminsidebar :adminName="$admin->name" id="sidebar"
         class="md:translate-x-0 -translate-x-full fixed md:static top-0 left-0 h-screen w-64 bg-red-600 transition-transform duration-300"></x-adminsidebar>
     <div class="flex justify-between items-center mb-6 p-4 md:hidden">
