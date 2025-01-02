@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'role',
         'password',
         'saldo',
+        'avatar',
     ];
 
     /**
@@ -51,4 +53,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * Accessor untuk mendapatkan URL avatar.
+     */
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar ? Storage::url($this->avatar) : 'https://via.placeholder.com/100';
+    }
 }

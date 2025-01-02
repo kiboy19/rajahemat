@@ -47,6 +47,10 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
     // History Pemesanan
     Route::get('/user/history', [OrderController::class, 'userHistory'])->name('user.history');
 
+    // Edit Profile
+    Route::get('/user/profile/edit', [App\Http\Controllers\User\ProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::post('/user/profile/update', [App\Http\Controllers\User\ProfileController::class, 'update'])->name('user.profile.update');
+
     // Tambahkan akses lain untuk user jika diperlukan
 });
 
@@ -73,13 +77,17 @@ Route::group(['middleware' => [EnsureAuthenticated::class, 'check_role:admin']],
     Route::get('/admin/tambahsaldo', [SaldoController::class, 'tambahSaldoForm'])->name('admin.tambahsaldo.form');
     Route::post('/admin/tambahsaldo', [SaldoController::class, 'tambahSaldo'])->name('admin.tambahsaldo');
 
-     // History Pemesanan Admin
-     Route::get('/admin/history', [OrderController::class, 'adminHistory'])->name('admin.history');
+    // History Pemesanan Admin
+    Route::get('/admin/history', [OrderController::class, 'adminHistory'])->name('admin.history');
 
-     // Aksi Admin pada Pemesanan
-     Route::post('/admin/order/{order}/process', [OrderController::class, 'processOrder'])->name('admin.order.process');
-     Route::post('/admin/order/{order}/cancel', [OrderController::class, 'cancelOrder'])->name('admin.order.cancel');
-     Route::post('/admin/order/{order}/complete', [OrderController::class, 'completeOrder'])->name('admin.order.complete');
+    // Aksi Admin pada Pemesanan
+    Route::post('/admin/order/{order}/process', [OrderController::class, 'processOrder'])->name('admin.order.process');
+    Route::post('/admin/order/{order}/cancel', [OrderController::class, 'cancelOrder'])->name('admin.order.cancel');
+    Route::post('/admin/order/{order}/complete', [OrderController::class, 'completeOrder'])->name('admin.order.complete');
+
+    // Edit Profile Admin
+    Route::get('/admin/profile/edit', [App\Http\Controllers\Admin\ProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::post('/admin/profile/update', [App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('admin.profile.update');
 });
 
 // Logout
