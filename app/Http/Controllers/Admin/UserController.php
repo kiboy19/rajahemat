@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class UserController extends Controller
 {
@@ -15,6 +18,24 @@ class UserController extends Controller
     {
         $admin = Auth::user();
         return view('admin.users.edit', compact('admin', 'user'));
+    }
+
+        /**
+     * Export users to PDF
+     */
+    public function exportPdf()
+    {
+        // Ambil semua pengguna dengan role 'user'
+        $users = User::where('role', 'user')->get();
+
+        // Buat view untuk PDF
+        $pdf = FacadePdf::loadView('admin.users.pdf', compact('users'));
+
+        // Nama file PDF
+        $fileName = 'list_users_' . date('Y_m_d_H_i_s') . '.pdf';
+
+        // Download PDF
+        return $pdf->download($fileName);
     }
 
     /**
@@ -51,4 +72,6 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('admin.dashboard')->with('success', 'User berhasil dihapus.');
     }
+
+
 }

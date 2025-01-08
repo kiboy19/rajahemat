@@ -90,5 +90,11 @@
             </table>
         </div>
     </div>
+    <div class="mt-6 flex justify-end">
+        <a href="{{ route('admin.users.exportPdf') }}"
+            class="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1">
+            <i class="fas fa-download mr-2"></i>Download Laporan PDF
+        </a>
+    </div>
 
 </div>
