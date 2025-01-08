@@ -56,6 +56,10 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
 
 // Routes untuk Admin
 Route::group(['middleware' => [EnsureAuthenticated::class, 'check_role:admin']], function () {
+
+    // Route untuk Download PDF
+    Route::get('/admin/users/pdf', [UserController::class, 'exportPdf'])->name('admin.users.exportPdf');
+
     // Dashboard Admin
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -91,7 +95,7 @@ Route::group(['middleware' => [EnsureAuthenticated::class, 'check_role:admin']],
 });
 
 // Logout
-Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Layanan Umum
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
