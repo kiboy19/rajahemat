@@ -35,8 +35,8 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
     Route::get('/user/deposit', [SaldoController::class, 'depositForm'])->name('user.depositForm');
     Route::post('/user/deposit', [SaldoController::class, 'deposit'])->name('user.deposit');
 
-    // History
-    Route::get('/user/history', [ServiceController::class, 'userNavHistory'])->name('user.services.userNavHistory');
+    // History Pemesanan
+    Route::get('/user/history', [OrderController::class, 'userHistory'])->name('user.history');
 
     // Services
     Route::get('/user/services', [ServiceController::class, 'userIndex'])->name('user.services.index');
@@ -44,8 +44,8 @@ Route::group(['middleware' => ['auth', 'check_role:user']], function () {
     // Pemesanan Layanan
     Route::post('/user/order', [OrderController::class, 'store'])->name('user.order.store');
 
-    // History Pemesanan
-    Route::get('/user/history', [OrderController::class, 'userHistory'])->name('user.history');
+     // History Pemesanan
+     Route::get('/user/history', [OrderController::class, 'userHistory'])->name('user.history');
 
     // Edit Profile
     Route::get('/user/profile/edit', [App\Http\Controllers\User\ProfileController::class, 'edit'])->name('user.profile.edit');

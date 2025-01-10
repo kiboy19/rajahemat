@@ -22,9 +22,6 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         <!-- Payment Method Column -->
         <x-deposit-content-paymentcolumn></x-deposit-content-paymentcolumn>
-
-        <!-- Special Offers Column -->
-        <x-deposit-content-specialoffer></x-deposit-content-specialoffer>
       </div>
     </div>
   </div>

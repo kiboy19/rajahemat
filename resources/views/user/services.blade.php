@@ -17,8 +17,6 @@
 
     <!-- Main Content -->
     <main id="main-content" class="p-4 lg:p-8 transition-all duration-300 ease-in-out md:ml-64">
-      <!-- Categories -->
-      <x-services-content-category></x-services-content-category>
 
       <!-- Search and Filter -->
       <x-services-content-searchfilter :Category="$categories"></x-services-content-searchfilter>
