@@ -74,22 +74,67 @@ class OrderController extends Controller
     /**
      * Menampilkan history pemesanan untuk user.
      */
-    public function userHistory()
+    
+     public function userHistory(Request $request)
     {
         $user = Auth::user();
-        $orders = $user->orders()->with('service')->orderBy('created_at', 'desc')->paginate(10);
+        $query = $user->orders()->with('service')->orderBy('created_at', 'desc');
 
-        return view('user.history', compact('user', 'orders'));
+        // Cek apakah ada parameter search
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('id', 'LIKE', "%{$search}%")
+                  ->orWhere('link', 'LIKE', "%{$search}%")
+                  ->orWhere('status', 'LIKE', "%{$search}%");
+                // Anda bisa menambahkan filter lain jika diperlukan
+            });
+        }
+
+        $orders = $query->paginate(10);
+
+        // Jika permintaan AJAX, kembalikan partial view
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('user.partials.orders-table', compact('orders'))->render()
+            ]);
+        }
+
+        // Jika bukan AJAX, tampilkan view lengkap
+        return view('user.history', compact('user','orders'));
     }
 
     /**
      * Menampilkan seluruh history pemesanan untuk admin.
      */
-    public function adminHistory()
+    public function adminHistory(Request $request)
     {
         $admin = Auth::user(); 
-        $orders = Order::with(['user', 'service'])->orderBy('created_at', 'desc')->paginate(20);
+        $query = Order::with(['user', 'service'])->orderBy('created_at', 'desc');
 
+        // Cek apakah ada parameter search
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('id', 'LIKE', "%{$search}%")
+                  ->orWhereHas('user', function($q2) use ($search) {
+                      $q2->where('name', 'LIKE', "%{$search}%");
+                  })
+                  ->orWhere('link', 'LIKE', "%{$search}%")
+                  ->orWhere('status', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $orders = $query->paginate(20);
+
+        // Jika permintaan AJAX, kembalikan partial view
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('admin.partials.orders-table', compact('admin','orders'))->render()
+            ]);
+        }
+
+        // Jika bukan AJAX, tampilkan view lengkap
         return view('admin.history', compact('admin','orders'));
     }
 

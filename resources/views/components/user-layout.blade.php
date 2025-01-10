@@ -48,7 +48,10 @@
         </div>
     @endif
     {{ $slot }}
-    <!-- Script untuk Toggle Sidebar -->
+    <!-- jQuery untuk AJAX Live Search / Filter -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Script untuk Toggle Sidebar dan Notifikasi -->
     <script>
         const hamburger = document.getElementById("hamburger");
         const sidebar = document.getElementById("sidebar");
@@ -73,8 +76,6 @@
             }, 3000); // 3 detik
         });
     </script>
-
-
 </body>
 
 </html>
