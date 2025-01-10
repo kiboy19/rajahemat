@@ -15,13 +15,7 @@
         <!-- Navbar Links for Desktop -->
         <div id="desktop-nav" class="hidden lg:flex items-center space-x-4 sm:space-x-6">
             <a href="/" class="text-black font-semibold hover:text-red-900">Sign In</a>
-            <a href="howitworks.html" class="text-black font-semibold hover:text-red-900">How It Works</a>
-            <a href="#howitworks" class="text-black font-semibold hover:text-red-900">Services</a>
             <a href="/register" class="text-black font-semibold hover:text-red-900">Sign Up</a>
-            <select class="bg-gray-700 text-white p-2 rounded">
-                <option value="en">English</option>
-                <option value="id">Bahasa Indonesia</option>
-            </select>
         </div>
     </div>
 
@@ -30,15 +24,7 @@
      class="hidden flex-col bg-white text-black rounded-b-[20px] shadow-md absolute top-16 left-0 right-0 w-full px-6 py-4 transition-all duration-500 ease-in-out opacity-0 transform scale-y-0 origin-top">
     <ul class="space-y-4 text-center">
         <li><a href="index.html" class="font-semibold hover:text-red-400 block">Sign In</a></li>
-        <li><a href="howitworks.html" class="font-semibold hover:text-red-400 block">How It Works</a></li>
-        <li><a href="#howitworks" class="font-semibold hover:text-red-400 block">Services</a></li>
         <li><a href="/register" class="font-semibold hover:text-red-400 block">Sign Up</a></li>
-        <li>
-            <select class="bg-gray-700 text-white p-2 rounded w-full">
-                <option value="en">English</option>
-                <option value="id">Bahasa Indonesia</option>
-            </select>
-        </li>
     </ul>
 
 </nav>
