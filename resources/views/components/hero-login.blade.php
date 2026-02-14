@@ -3,9 +3,12 @@
         <div
             class="flex flex-col lg:flex-row items-center bg-red-900 overflow-hidden space-y-6 lg:space-y-0 lg:space-x-6">
             <!-- Left Column -->
-            <div class="lg:w-1/2 p-8 text-white text-center flex flex-col justify-center">
-                <h1 class="text-4xl font-bold mb-4">Join Us Today!</h1>
-                <p class="text-lg mb-6">Unlock exclusive features and enjoy a seamless experience. Sign up now to get
+            <div class="lg:w-1/2 p-4 lg:p-8 text-white text-center flex flex-col justify-center">
+                <img src="https://rajahemat.com/rajahemat.webp" alt="logo rajahemat"
+                    class="img-fluid text-center max-w-[80%] mx-auto">
+                <h1 class="text-3xl lg:text-4xl font-bold mb-4">Join Us Today!</h1>
+                <p class="text-base lg:text-lg mb-6">Unlock exclusive features and enjoy a seamless experience. Sign up
+                    now to get
                     started!</p>
                 <a href="/register"
                     class="bg-green-600 text-white font-bold py-3 px-6 rounded-md hover:bg-gray-200 hover:text-black transition">

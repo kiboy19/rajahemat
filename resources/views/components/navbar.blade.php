@@ -1,14 +1,17 @@
-<nav class="bg-white border border-white rounded-[20px] shadow-md px-20 py-4 mx-20 mt-4 sm:px-10 md:px-14 lg:px-20 relative">
+<nav
+    class="bg-white border border-white rounded-[20px] shadow-md px-4 py-4 mx-4 mt-4 sm:px-10 md:px-14 lg:px-20 lg:mx-20 relative">
     <div class="container mx-auto flex justify-between items-center">
         <!-- Logo -->
         <div>
-            <img src="/storage/img/rajahemat.png" class="w-12 h-12" alt="Logo">
+            <img src="https://rajahemat.com/rajahemat.webp" class="w-12 h-12" alt="Logo">
         </div>
 
         <!-- Hamburger Icon for Mobile -->
         <button class="lg:hidden text-black focus:outline-none" onclick="toggleNavbar()">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
             </svg>
         </button>
 
@@ -20,12 +23,12 @@
     </div>
 
     <!-- Mobile Nav (Dropdown) -->
-    <div id="mobile-nav" 
-     class="hidden flex-col bg-white text-black rounded-b-[20px] shadow-md absolute top-16 left-0 right-0 w-full px-6 py-4 transition-all duration-500 ease-in-out opacity-0 transform scale-y-0 origin-top">
-    <ul class="space-y-4 text-center">
-        <li><a href="index.html" class="font-semibold hover:text-red-400 block">Sign In</a></li>
-        <li><a href="/register" class="font-semibold hover:text-red-400 block">Sign Up</a></li>
-    </ul>
+    <div id="mobile-nav"
+        class="hidden flex-col bg-white text-black rounded-b-[20px] shadow-md absolute top-16 left-0 right-0 w-full px-6 py-4 transition-all duration-500 ease-in-out opacity-0 transform scale-y-0 origin-top">
+        <ul class="space-y-4 text-center">
+            <li><a href="index.html" class="font-semibold hover:text-red-400 block">Sign In</a></li>
+            <li><a href="/register" class="font-semibold hover:text-red-400 block">Sign Up</a></li>
+        </ul>
 
 </nav>
 
@@ -33,7 +36,7 @@
     // Function to toggle the mobile navigation menu
     function toggleNavbar() {
         const mobileNav = document.getElementById("mobile-nav");
-        
+
         // Check if mobileNav is hidden
         if (mobileNav.classList.contains("hidden")) {
             mobileNav.classList.remove("hidden");
